@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/polibsq_txv"
             android:layout_alignParentEnd="true"
+            android:inputType="text"
             android:ems="15">
 
             <requestFocus />
@@ -100,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/TextView03"
             android:layout_alignParentEnd="true"
+            android:inputType="text"
             android:ems="15" />
 
         <EditText

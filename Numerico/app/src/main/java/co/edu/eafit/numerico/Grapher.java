@@ -135,30 +135,30 @@ public class Grapher extends AppCompatActivity {
                 }
                 dfx_estado = true;
             }
-//            if(strdata.equals("Secante")){
-//                fx_stg = MetodoSecante.funcionMS2;
-//                x0_stg = MetodoSecante.val_iniIn;
-//                x1_stg = MetodoSecante.val_iniS;
-//                delta_stg = null;
-//                x0 = Double.parseDouble(x0_stg);
-//                x1 = Double.parseDouble(x1_stg);
-//            }
-//            if(strdata.equals("RaicesMultiplez")){
-//                fx_stg = RaicesMultiples.funcionRM1;
-//                dfx_stg = RaicesMultiples.funcionRM2;
-//                d2fx_stg = RaicesMultiples.funcionRM3;
-//                x0_stg = RaicesMultiples.val_iniIn;
-//                x1_stg = null;
-//                delta_stg = null;
-//                x0 = Double.parseDouble(x0_stg);
-//                if(x0 == 0){
-//                    x1 = 5;
-//                }else {
-//                    x1 = Math.pow(x0, 2);
-//                }
-//                dfx_estado = true;
-//                d2fx_estado = true;
-//            }
+            if(strdata.equals("Secante")){
+                fx_stg = SecantMethod.funcionMS2;
+                x0_stg = SecantMethod.val_iniIn;
+                x1_stg = SecantMethod.val_iniS;
+                delta_stg = null;
+                x0 = Double.parseDouble(x0_stg);
+                x1 = Double.parseDouble(x1_stg);
+            }
+            if(strdata.equals("RaicesMultiplez")){
+                fx_stg = MultipleRoots.funcionRM1;
+                dfx_stg = MultipleRoots.funcionRM2;
+                d2fx_stg = MultipleRoots.funcionRM3;
+                x0_stg = MultipleRoots.val_iniIn;
+                x1_stg = null;
+                delta_stg = null;
+                x0 = Double.parseDouble(x0_stg);
+                if(x0 == 0){
+                    x1 = 5;
+                }else {
+                    x1 = Math.pow(x0, 2);
+                }
+                dfx_estado = true;
+                d2fx_estado = true;
+            }
             if(strdata.equals("AlgunasFunciones")){
                 fx_stg = OneVariableInput.fXTodos;
                 dfx_stg = OneVariableInput.dfXTodos;

@@ -70,6 +70,7 @@
             android:layout_alignRight="@+id/initial_value_edit"
             android:layout_alignStart="@+id/initial_value_edit"
             android:layout_toEndOf="@+id/TextView03"
+            android:inputType="text"
             android:ems="25">
 
             <requestFocus />

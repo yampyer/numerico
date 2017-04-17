@@ -98,6 +98,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ems="15"
+            android:inputType="text"
             android:layout_alignBottom="@+id/polibsq_txv"
             android:layout_toEndOf="@+id/textView1"
             android:layout_alignStart="@+id/gx_edit">
@@ -119,6 +120,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:ems="15"
+            android:inputType="text"
             android:layout_above="@+id/textView1"
             android:layout_toEndOf="@+id/textView1"
             android:layout_alignStart="@+id/x0_edit" />

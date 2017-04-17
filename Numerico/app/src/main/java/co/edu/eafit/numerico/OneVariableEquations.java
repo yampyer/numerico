@@ -74,12 +74,12 @@ public class OneVariableEquations extends AppCompatActivity implements View.OnCl
                 startActivity(newtonMethod);
                 break;
             case R.id.secant_btn:
-//                Intent secantMethod = new Intent(this, SecantMethod.class);
-//                startActivity(secantMethod);
+                Intent secantMethod = new Intent(this, SecantMethod.class);
+                startActivity(secantMethod);
                 break;
             case R.id.multiple_roots_btn:
-//                Intent multipleRoots = new Intent(this, MultipleRoots.class);
-//                startActivity(multipleRoots);
+                Intent multipleRoots = new Intent(this, MultipleRoots.class);
+                startActivity(multipleRoots);
                 break;
         }
     }

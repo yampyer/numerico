@@ -54,6 +54,14 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".SecantMethod"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MultipleRoots"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Table"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />

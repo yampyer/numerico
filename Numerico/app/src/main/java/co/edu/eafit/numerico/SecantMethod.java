@@ -23,25 +23,25 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class Bisection extends AppCompatActivity implements View.OnClickListener {
+public class SecantMethod extends AppCompatActivity implements View.OnClickListener {
 
     EditText stringInicial;
     EditText stringSiguiente;
     EditText stringIteraciones;
     EditText stringTolerancia;
-    EditText polinomioBisc;
+    EditText polinomioMS;
 
     String valorInicial;
     String valorSiguiente;
     String valorIteraciones;
     String valorTolerancia;
-    String funcionbisc;
+    String funcionMS;
 
     static String val_iniIn;
     String val_iniIt;
     static String val_iniS;
     String val_iniT;
-    static String funcionbisc2;
+    static String funcionMS2;
 
     boolean estoyTabla = false;
 
@@ -53,26 +53,26 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     double xAux;
     double fX0;
     double fX1;
-    double fXMedio;
-    double xMedio;
+    double x2;
 
     int iteraciones;
     int cosa;
     int count = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bisection);
+        setContentView(R.layout.activity_secant_method);
 
         stringInicial = (EditText) findViewById(R.id.initial_value_edit);
         stringSiguiente = (EditText) findViewById(R.id.next_value_edit);
         stringIteraciones = (EditText) findViewById(R.id.iterations_edit);
         stringTolerancia = (EditText) findViewById(R.id.tolerance_edit);
-        polinomioBisc = (EditText) findViewById(R.id.function_edit);
+        polinomioMS = (EditText) findViewById(R.id.function_edit);
 
         if (!OneVariableInput.fXTodos.matches("")) {
-            polinomioBisc.setText(OneVariableInput.fXTodos);
+            polinomioMS.setText(OneVariableInput.fXTodos);
         }
 
         Button calcularBsc_btn = (Button) findViewById(R.id.calculate_btn);
@@ -95,7 +95,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         valorSiguiente = stringSiguiente.getText().toString();
         valorIteraciones = stringIteraciones.getText().toString();
         valorTolerancia = stringTolerancia.getText().toString();
-        funcionbisc = polinomioBisc.getText().toString();
+        funcionMS = polinomioMS.getText().toString();
     }
 
     @Override
@@ -113,19 +113,18 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.calculate_btn:
                 datosEdit();
-                if (valorInicial.matches("") || valorSiguiente.matches("") || valorIteraciones.matches("") || valorTolerancia.matches("") || funcionbisc.matches("")) {
-                    Toast.makeText(this, "Enter values", Toast.LENGTH_SHORT).show();
+                if (valorInicial.matches("") || valorSiguiente.matches("") || valorIteraciones.matches("") || valorTolerancia.matches("") || funcionMS.matches("")) {
+                    Toast.makeText(this, "Enter values", Toast.LENGTH_LONG).show();
                     return;
                 } else {
                     val_iniIn = valorInicial;
                     val_iniIt = valorIteraciones;
                     val_iniS = valorSiguiente;
                     val_iniT = valorTolerancia;
-                    funcionbisc2 = funcionbisc;
+                    funcionMS2 = funcionMS;
                     comprobarValor();
                 }
                 break;
-
             default:
                 break;
 
@@ -133,37 +132,45 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     }
 
     void comprobarValor() {
+        valorInicial = stringInicial.getText().toString();
+        valorSiguiente = stringSiguiente.getText().toString();
+        valorIteraciones = stringIteraciones.getText().toString();
+        valorTolerancia = stringTolerancia.getText().toString();
+
         xInicial = Double.parseDouble(valorInicial);
         xSiguiente = Double.parseDouble(valorSiguiente);
         tolerancia = Double.parseDouble(valorTolerancia);
         iteraciones = Integer.parseInt(valorIteraciones);
 
+
         if (iteraciones == 0) {
             Mensaje("Iterations has to be major than zero");
             stringIteraciones.setText(" ");
         } else {
-            metodoBiseccion();
+            metodoSecante();
         }
+
+
     }
 
-    void metodoBiseccion() {
-        funcionbisc = polinomioBisc.getText().toString();
+
+    void metodoSecante() {
+        funcionMS = polinomioMS.getText().toString();
         NumberFormat formatter = new DecimalFormat("0.###E0");
         NumberFormat formatter2 = new DecimalFormat("0.#####E0");
+
         try {
             Evaluator myParser = new Evaluator();
 
-            fX0 = myParser.evaluate("x", xInicial, funcionbisc);
-            fX1 = myParser.evaluate("x", xSiguiente, funcionbisc);
+            fX0 = myParser.evaluate("x", xInicial, funcionMS);
+
             if (fX0 == 0) {
                 Mensaje(xInicial + " is a root");
-            } else if (fX1 == 0) {
-                Mensaje(xSiguiente + " is a root");
-            } else if ((fX0 * fX1) < 0) {
-                xMedio = (xInicial + xSiguiente) / 2;
-                fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
+            } else {
+                fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
                 xError = tolerancia + 1;
                 xErrorR = tolerancia + 1;
+                xAux = fX1 - fX0;
 
                 setContentView(R.layout.activity_table);
 
@@ -175,115 +182,133 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
                 count = 0;
 
                 String str_n = String.valueOf(" n   ");
-                String str_ini = String.valueOf(" X0 ");
-                String str_sig = String.valueOf(" X1 ");
-                String str_xmed = String.valueOf(" XMedium ");
-                String str_fxmed = String.valueOf(" f(XMedium) ");
+                String str_ini = String.valueOf(" Xn ");
+                String str_xn = String.valueOf(" f(Xn) ");
                 String str_err = String.valueOf(" Absolute Error ");
                 String str_errR = String.valueOf(" Relative Error ");
 
-                tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
                 count++;
 
                 str_n = String.valueOf(0);
                 str_ini = String.valueOf(xInicial);
-                str_sig = String.valueOf(xSiguiente);
-                str_xmed = String.valueOf(xMedio);
-                str_fxmed = String.valueOf(formatter.format(fXMedio));
+                str_xn = String.valueOf(fX1);
                 str_err = String.valueOf("Doesn't exist");
                 str_errR = String.valueOf("Doesn't exist");
 
-                tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
 
-
-                for (int i = 0; (i < iteraciones) && (xError > tolerancia) && (xErrorR > tolerancia) && (fXMedio != 0); i++) {
-
-                    if ((fX0 * fXMedio) < 0) {
-                        xSiguiente = xMedio;
-                        fX1 = fXMedio;
-                    } else {
-                        xInicial = xMedio;
-                        fX0 = fXMedio;
-                    }
-
-                    xAux = xMedio;
-                    xMedio = (xInicial + xSiguiente) / 2;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
+                for (int i = 0; (fX1 != 0) && (xAux != 0) && (xError > tolerancia) && (xErrorR > tolerancia) && (i < iteraciones); i++) {
+                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
+                    xError = Math.abs(x2 - xSiguiente);
+                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
+                    xInicial = xSiguiente;
+                    fX0 = fX1;
+                    xSiguiente = x2;
+                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
+                    xAux = fX1 - fX0;
 
                     cosa = i + 1;
                     str_n = " " + String.valueOf(cosa) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = " " + String.valueOf(formatter.format(fXMedio)) + " ";
+                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
+                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
                     str_err = " " + String.valueOf(formatter.format(xError)) + " ";
                     str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
+
 
                 }
+                if (fX1 == 0) {
+                    Mensaje(xSiguiente + " is a root");
 
-                if (fXMedio == 0) {
-                    Mensaje(xMedio + " is a root");
+                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
+                    xSiguiente = x2;
+                    xError = Math.abs(x2 - xSiguiente);
+                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
+                    xInicial = xSiguiente;
+                    fX0 = fX1;
+                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
+                    xAux = fX1 - fX0;
 
                     str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = " " + String.valueOf(formatter.format(fXMedio)) + " ";
+                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
+                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
                     str_err = " " + String.valueOf(formatter.format(xError)) + " ";
                     str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
 
                 } else if (xError < tolerancia) {
-                    Mensaje(xMedio + " is an approximation to a root with a tolerance = " + tolerancia);
+                    Mensaje(xSiguiente + " is an approximation to a root with a tolerance = " + tolerancia + ".");
 
-                    xMedio = (xInicial + xSiguiente) / 2;
-                    xAux = xMedio;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
+                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
+                    xSiguiente = x2;
+                    xError = Math.abs(x2 - xSiguiente);
+                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
+                    xInicial = xSiguiente;
+                    fX0 = fX1;
+                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
+                    xAux = fX1 - fX0;
 
-                    str_n = String.valueOf(cosa + 1);
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = String.valueOf(fXMedio);
-                    str_err = String.valueOf(formatter.format(xError));
-                    str_errR = String.valueOf(formatter.format(xErrorR));
+                    str_n = " " + String.valueOf(cosa + 1) + " ";
+                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
+                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
+                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
+                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
+
+                } else if (xAux == 0) {
+                    Mensaje("There is a possible multiple root");
+
+                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
+                    xSiguiente = x2;
+                    xError = Math.abs(x2 - xSiguiente);
+                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
+                    xInicial = xSiguiente;
+                    fX0 = fX1;
+                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
+                    xAux = fX1 - fX0;
+
+                    str_n = " " + String.valueOf(cosa + 1) + " ";
+                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
+                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
+                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
+                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
+
+                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
+
                 } else {
                     Mensaje("Failure in " + iteraciones + " iterations");
 
-                    xMedio = (xInicial + xSiguiente) / 2;
-                    xAux = xMedio;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
+                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
+                    xSiguiente = x2;
+                    xError = Math.abs(x2 - xSiguiente);
+                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
+                    xInicial = xSiguiente;
+                    fX0 = fX1;
+                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
+                    xAux = fX1 - fX0;
 
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = " " + String.valueOf(formatter.format(fXMedio)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
+                    str_n = String.valueOf(cosa + 1);
+                    str_ini = String.valueOf(xSiguiente);
+                    str_xn = String.valueOf(fX1);
+                    str_err = String.valueOf(formatter.format(xError));
+                    str_errR = String.valueOf(formatter.format(xErrorR));
 
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
                 }
-            } else {
-                Mensaje("The interval is not optimum");
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");
+
         } catch (Exception e) {
             Mensaje("Error: " + e.getMessage());
+
         }
     }
+
 
     public void Mensaje(String s) {
 
@@ -300,7 +325,9 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         dialog.show();
     }
 
-    public void tablitaBisc(String str_n, String str_ini, String str_sig, String str_xmed, String str_fxmed, String str_err, String str_errR) {
+
+    public void tablitaRF(String str_n, String str_ini, String str_xn, String str_err, String str_errR) {
+        TableLayout t1;
 
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
 
@@ -310,6 +337,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
             tr.setBackgroundColor(Color.argb(104, 12, 66, 204));
             tr.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             tr.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
+
         } else {
             if (count % 2 != 0) tr.setBackgroundColor(Color.argb(34, 14, 68, 205));
             tr.setId(100 + count);
@@ -332,29 +360,13 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         labelInicial.setTextColor(Color.BLACK);
         tr.addView(labelInicial);
 
-        TextView labelSiguiente = new TextView(this);
-        labelSiguiente.setId(200 + count);
-        labelSiguiente.setTextSize(15);
-        labelSiguiente.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelSiguiente.setText(str_sig);
-        labelSiguiente.setTextColor(Color.BLACK);
-        tr.addView(labelSiguiente);
-
         TextView labelXMedio = new TextView(this);
         labelXMedio.setId(200 + count);
         labelXMedio.setTextSize(15);
         labelXMedio.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelXMedio.setText(str_xmed);
+        labelXMedio.setText(str_xn);
         labelXMedio.setTextColor(Color.BLACK);
         tr.addView(labelXMedio);
-
-        TextView labelFXMedio = new TextView(this);
-        labelFXMedio.setId(200 + count);
-        labelFXMedio.setTextSize(15);
-        labelFXMedio.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelFXMedio.setText(str_fxmed);
-        labelFXMedio.setTextColor(Color.BLACK);
-        tr.addView(labelFXMedio);
 
         TextView labelErr = new TextView(this);
         labelErr.setId(200 + count);
@@ -378,6 +390,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
 
     }
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (estoyTabla) {
@@ -390,6 +403,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         return super.onKeyDown(keyCode, event);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -399,14 +413,15 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
                 return true;
             case R.id.graph_UV:
                 datosEdit();
-                if (valorInicial.matches("") || valorSiguiente.matches("") || funcionbisc.matches("")) {
-                    Toast.makeText(this, "Enter values", Toast.LENGTH_SHORT).show();
+                if (valorInicial.matches("") || valorSiguiente.matches("") || funcionMS.matches("")) {
+                    Toast.makeText(this, "Enter values", Toast.LENGTH_LONG).show();
+
                 } else {
                     val_iniIn = valorInicial;
                     val_iniS = valorSiguiente;
-                    funcionbisc2 = funcionbisc;
+                    funcionMS2 = funcionMS;
                     Intent graficador = new Intent(this, Grapher.class);
-                    graficador.putExtra("Uniqid", "Biseccion");
+                    graficador.putExtra("Uniqid", "Secante");
                     startActivity(graficador);
                 }
                 return true;
@@ -416,37 +431,37 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     }
 
     public void help() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        }).setMessage("The method consists in dividing the given interval, which contains a root, into two equal-sized subranges.\n" +
+        }).setMessage("The Secant method is a variant of the Newton’s Method, but in this method the derivative is replaced with an expression which brings it nearer\n" +
                 "\n" +
-                "Then you decide with which subinterval must continue to work, and this decision is based on the following criteria: which of the two subintervals contains the cusp in the range of the function?\n" +
+                "Xn+2 = Xn+1 – (f(Xn+1)*(Xn+1-Xn) / f(Xn+1) - f(Xn)).\n" +
                 "\n" +
-                "After taking the decision, we continue with the process iteratively, repeating the above steps, and getting a sequence of values formed by the midpoints obtained in each iteration.\n" +
-                "\n" +
-                "This sequence converges to a root of the equation, which is in that range.");
+                "This way, and beginning with two initial random values, the next one can be calculated using the mentioned expression as X2 = X1 – ((f(X1)*(X1-X0)) / (f(X1)-f(X0))");
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
     }
 
     public void loadView() {
-        setContentView(R.layout.activity_bisection);
+        setContentView(R.layout.activity_secant_method);
 
         stringInicial = (EditText) findViewById(R.id.initial_value_edit);
         stringSiguiente = (EditText) findViewById(R.id.next_value_edit);
         stringIteraciones = (EditText) findViewById(R.id.iterations_edit);
         stringTolerancia = (EditText) findViewById(R.id.tolerance_edit);
-        polinomioBisc = (EditText) findViewById(R.id.function_edit);
+        polinomioMS = (EditText) findViewById(R.id.function_edit);
 
         stringInicial.setText(val_iniIn);
         stringSiguiente.setText(val_iniS);
         stringIteraciones.setText(val_iniIt);
         stringTolerancia.setText(val_iniT);
-        polinomioBisc.setText(funcionbisc2);
+        polinomioMS.setText(funcionMS2);
 
         Button calcularBsc_btn = (Button) findViewById(R.id.calculate_btn);
         calcularBsc_btn.setOnClickListener(this);
@@ -454,6 +469,6 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
+    }
 }
