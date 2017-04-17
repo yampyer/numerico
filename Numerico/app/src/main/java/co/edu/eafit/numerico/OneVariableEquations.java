@@ -62,16 +62,16 @@ public class OneVariableEquations extends AppCompatActivity implements View.OnCl
                 startActivity(bisection);
                 break;
             case R.id.false_position_btn:
-//                Intent falsePosition = new Intent(this, FalsePosition.class);
-//                startActivity(falsePosition);
+                Intent falsePosition = new Intent(this, FalsePosition.class);
+                startActivity(falsePosition);
                 break;
             case R.id.fixed_point_btn:
-//                Intent fixedPoint = new Intent(this, FixedPoint.class);
-//                startActivity(fixedPoint);
+                Intent fixedPoint = new Intent(this, FixedPoint.class);
+                startActivity(fixedPoint);
                 break;
             case R.id.newton_btn:
-//                Intent newtonMethod = new Intent(this, NewtonMethod.class);
-//                startActivity(newtonMethod);
+                Intent newtonMethod = new Intent(this, NewtonMethod.class);
+                startActivity(newtonMethod);
                 break;
             case R.id.secant_btn:
 //                Intent secantMethod = new Intent(this, SecantMethod.class);

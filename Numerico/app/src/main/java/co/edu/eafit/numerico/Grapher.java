@@ -99,42 +99,42 @@ public class Grapher extends AppCompatActivity {
                 x0 = Double.parseDouble(x0_stg);
                 x1 = Double.parseDouble(x1_stg);
             }
-//            if(strdata.equals("ReglaFalsa")){
-//                fx_stg = ReglaFalsa.funcionRF2;
-//                x0_stg = ReglaFalsa.val_iniIn;
-//                x1_stg = ReglaFalsa.val_iniS;
-//                delta_stg = null;
-//                x0 = Double.parseDouble(x0_stg);
-//                x1 = Double.parseDouble(x1_stg);
-//            }
-//            if(strdata.equals("PuntoFijo")){
-//                fx_stg = PuntoFijo.val_funcionPF;
-//                gx_stg = PuntoFijo.val_funcionG;
-//                x0_stg = PuntoFijo.val_iniIn;
-//                x1_stg = null;
-//                delta_stg = null;
-//                x0 = Double.parseDouble(x0_stg);
-//                if(x0 == 0){
-//                    x1 = 5;
-//                }else {
-//                    x1 = Math.pow(x0, 2);
-//                }
-//                gx_estado = true;
-//            }
-//            if(strdata.equals("Newton")){
-//                fx_stg = MetodoNewton.funcionfx;
-//                dfx_stg = MetodoNewton.funciondfx;
-//                x0_stg = MetodoNewton.val_iniIn;
-//                x1_stg = null;
-//                delta_stg = null;
-//                x0 = Double.parseDouble(x0_stg);
-//                if(x0 == 0){
-//                    x1 = 5;
-//                }else {
-//                    x1 = Math.pow(x0, 2);
-//                }
-//                dfx_estado = true;
-//            }
+            if(strdata.equals("ReglaFalsa")){
+                fx_stg = FalsePosition.funcionRF2;
+                x0_stg = FalsePosition.val_iniIn;
+                x1_stg = FalsePosition.val_iniS;
+                delta_stg = null;
+                x0 = Double.parseDouble(x0_stg);
+                x1 = Double.parseDouble(x1_stg);
+            }
+            if(strdata.equals("PuntoFijo")){
+                fx_stg = FixedPoint.val_funcionPF;
+                gx_stg = FixedPoint.val_funcionG;
+                x0_stg = FixedPoint.val_iniIn;
+                x1_stg = null;
+                delta_stg = null;
+                x0 = Double.parseDouble(x0_stg);
+                if(x0 == 0){
+                    x1 = 5;
+                }else {
+                    x1 = Math.pow(x0, 2);
+                }
+                gx_estado = true;
+            }
+            if(strdata.equals("Newton")){
+                fx_stg = NewtonMethod.funcionfx;
+                dfx_stg = NewtonMethod.funciondfx;
+                x0_stg = NewtonMethod.val_iniIn;
+                x1_stg = null;
+                delta_stg = null;
+                x0 = Double.parseDouble(x0_stg);
+                if(x0 == 0){
+                    x1 = 5;
+                }else {
+                    x1 = Math.pow(x0, 2);
+                }
+                dfx_estado = true;
+            }
 //            if(strdata.equals("Secante")){
 //                fx_stg = MetodoSecante.funcionMS2;
 //                x0_stg = MetodoSecante.val_iniIn;

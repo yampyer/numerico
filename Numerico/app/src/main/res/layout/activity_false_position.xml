@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="co.edu.eafit.numerico.Bisection">
+    tools:context="co.edu.eafit.numerico.FalsePosition">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,12 +20,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
-        android:padding="30dp" >
+        android:padding="30dp">
 
         <TextView
             android:id="@+id/TextView02"
@@ -38,23 +37,14 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <EditText
-            android:id="@+id/next_value_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal|numberSigned"
-            android:ems="15"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_alignStart="@+id/initial_value_edit" />
-
         <TextView
-            android:id="@+id/polibsc_txv"
+            android:id="@+id/poliRF_txv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
             android:text="Function:"
             android:textColor="#000000"
             android:textSize="25dp" />
@@ -64,52 +54,12 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/TextView03"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="35dp"
-            android:ems="15"
-            android:layout_alignParentEnd="true">
+            android:ems="15">
 
             <requestFocus />
         </EditText>
-
-        <EditText
-            android:id="@+id/iterations_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/TextView02"
-            android:layout_alignLeft="@+id/next_value_edit"
-            android:ems="15"
-            android:maxLines="1"
-            android:inputType="number" />
-
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/polibsc_txv"
-            android:layout_below="@+id/polibsc_txv"
-            android:layout_marginTop="30dp"
-            android:text="Initial Value:"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/initial_value_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView1"
-            android:layout_alignRight="@+id/function_edit"
-            android:ems="15"
-            android:inputType="numberDecimal|numberSigned" />
-
-        <EditText
-            android:id="@+id/tolerance_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TextView02"
-            android:layout_alignStart="@+id/iterations_edit"
-            android:ems="15"
-            android:inputType="numberDecimal|numberSigned"
-            android:maxLines="1" />
 
         <TextView
             android:id="@+id/textView1"
@@ -118,7 +68,7 @@
             android:layout_alignLeft="@+id/TextView03"
             android:layout_below="@+id/TextView03"
             android:layout_marginTop="30dp"
-            android:text="Next Value:"
+            android:text="X1:"
             android:textColor="#000000"
             android:textSize="25dp" />
 
@@ -133,14 +83,66 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/poliRF_txv"
+            android:layout_below="@+id/poliRF_txv"
+            android:layout_marginTop="30dp"
+            android:text="X0:"
+            android:textColor="#000000"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/initial_value_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView1"
+            android:layout_alignEnd="@+id/function_edit"
+            android:layout_alignRight="@+id/function_edit"
+            android:ems="15"
+            android:inputType="numberDecimal|numberSigned"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/iterations_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/TextView01"
+            android:layout_alignLeft="@+id/initial_value_edit"
+            android:ems="15"
+            android:inputType="number"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/next_value_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/TextView01"
+            android:layout_alignLeft="@+id/initial_value_edit"
+            android:layout_alignStart="@+id/initial_value_edit"
+            android:ems="15"
+            android:inputType="numberDecimal|numberSigned"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/tolerance_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/TextView02"
+            android:layout_alignLeft="@+id/iterations_edit"
+            android:ems="15"
+            android:inputType="numberDecimal"
+            android:maxLines="1" />
 
         <Button
             android:id="@+id/calculate_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tolerance_edit"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
+            android:layout_marginBottom="16dp"
             android:text="Calculate" />
 
     </RelativeLayout>
