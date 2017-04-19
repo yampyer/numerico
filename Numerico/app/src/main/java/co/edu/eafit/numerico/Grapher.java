@@ -12,6 +12,7 @@ import android.widget.Toast;
 import android.widget.ZoomButton;
 
 import java.util.ArrayList;
+
 import com.androidplot.util.PixelUtils;
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.LineAndPointFormatter;
@@ -62,22 +63,22 @@ public class Grapher extends AppCompatActivity {
 
         // verification of intent coming from
         Intent intent = this.getIntent();
-        if(intent !=null) {
+        if (intent != null) {
             String strdata = intent.getExtras().getString("Uniqid");
-            if(strdata.equals("Busquedas")){
+            if (strdata.equals("Busquedas")) {
                 fx_stg = IncrementalSearch.funcionbsq2;
                 x0_stg = IncrementalSearch.val_iniIn;
                 delta_stg = IncrementalSearch.val_iniD;
 
                 x0 = Double.parseDouble(x0_stg);
-                if(x0 == 0){
-                    x1 = 5;
-                }else {
+                if (x0 == 0 || x0 == 1) {
+                    x1 = 5 + x0;
+                } else {
                     x1 = Math.pow(x0, 2);
                 }
                 delta = Double.parseDouble(delta_stg);
             }
-            if(strdata.equals("DatosUnaVariable")){
+            if (strdata.equals("DatosUnaVariable")) {
 
                 fx_stg = OneVariableInput.fXTodos;
                 dfx_stg = OneVariableInput.dfXTodos;
@@ -88,9 +89,9 @@ public class Grapher extends AppCompatActivity {
                 x1 = 10;
                 gx_estado = true;
                 dfx_estado = true;
-                d2fx_estado =true;
+                d2fx_estado = true;
             }
-            if(strdata.equals("Biseccion")){
+            if (strdata.equals("Biseccion")) {
 
                 fx_stg = Bisection.funcionbisc2;
                 x0_stg = Bisection.val_iniIn;
@@ -99,7 +100,7 @@ public class Grapher extends AppCompatActivity {
                 x0 = Double.parseDouble(x0_stg);
                 x1 = Double.parseDouble(x1_stg);
             }
-            if(strdata.equals("ReglaFalsa")){
+            if (strdata.equals("ReglaFalsa")) {
                 fx_stg = FalsePosition.funcionRF2;
                 x0_stg = FalsePosition.val_iniIn;
                 x1_stg = FalsePosition.val_iniS;
@@ -107,35 +108,35 @@ public class Grapher extends AppCompatActivity {
                 x0 = Double.parseDouble(x0_stg);
                 x1 = Double.parseDouble(x1_stg);
             }
-            if(strdata.equals("PuntoFijo")){
+            if (strdata.equals("PuntoFijo")) {
                 fx_stg = FixedPoint.val_funcionPF;
                 gx_stg = FixedPoint.val_funcionG;
                 x0_stg = FixedPoint.val_iniIn;
                 x1_stg = null;
                 delta_stg = null;
                 x0 = Double.parseDouble(x0_stg);
-                if(x0 == 0){
-                    x1 = 5;
-                }else {
+                if (x0 == 0 || x0 == 1) {
+                    x1 = 5 + x0;
+                } else {
                     x1 = Math.pow(x0, 2);
                 }
                 gx_estado = true;
             }
-            if(strdata.equals("Newton")){
+            if (strdata.equals("Newton")) {
                 fx_stg = NewtonMethod.funcionfx;
                 dfx_stg = NewtonMethod.funciondfx;
                 x0_stg = NewtonMethod.val_iniIn;
                 x1_stg = null;
                 delta_stg = null;
                 x0 = Double.parseDouble(x0_stg);
-                if(x0 == 0){
-                    x1 = 5;
-                }else {
+                if (x0 == 0 || x0 == 1) {
+                    x1 = 5 + x0;
+                } else {
                     x1 = Math.pow(x0, 2);
                 }
                 dfx_estado = true;
             }
-            if(strdata.equals("Secante")){
+            if (strdata.equals("Secante")) {
                 fx_stg = SecantMethod.funcionMS2;
                 x0_stg = SecantMethod.val_iniIn;
                 x1_stg = SecantMethod.val_iniS;
@@ -143,7 +144,7 @@ public class Grapher extends AppCompatActivity {
                 x0 = Double.parseDouble(x0_stg);
                 x1 = Double.parseDouble(x1_stg);
             }
-            if(strdata.equals("RaicesMultiplez")){
+            if (strdata.equals("RaicesMultiplez")) {
                 fx_stg = MultipleRoots.funcionRM1;
                 dfx_stg = MultipleRoots.funcionRM2;
                 d2fx_stg = MultipleRoots.funcionRM3;
@@ -151,15 +152,15 @@ public class Grapher extends AppCompatActivity {
                 x1_stg = null;
                 delta_stg = null;
                 x0 = Double.parseDouble(x0_stg);
-                if(x0 == 0){
-                    x1 = 5;
-                }else {
+                if (x0 == 0 || x0 == 1) {
+                    x1 = 5 + x0;
+                } else {
                     x1 = Math.pow(x0, 2);
                 }
                 dfx_estado = true;
                 d2fx_estado = true;
             }
-            if(strdata.equals("AlgunasFunciones")){
+            if (strdata.equals("AlgunasFunciones")) {
                 fx_stg = OneVariableInput.fXTodos;
                 dfx_stg = OneVariableInput.dfXTodos;
                 d2fx_stg = OneVariableInput.d2fXTodos;
@@ -167,13 +168,13 @@ public class Grapher extends AppCompatActivity {
                 delta_stg = null;
                 x0 = -10;
                 x1 = 10;
-                if(dfx_stg != null){
+                if (dfx_stg != null) {
                     dfx_estado = true;
                 }
-                if(gx_stg != null) {
+                if (gx_stg != null) {
                     gx_estado = true;
                 }
-                if(d2fx_stg != null) {
+                if (d2fx_stg != null) {
                     d2fx_estado = true;
                 }
             }
@@ -182,7 +183,7 @@ public class Grapher extends AppCompatActivity {
         calculate();
 
         izq = minXY.x - 2.0f;
-        der =  maxXY.x + 2.0f;
+        der = maxXY.x + 2.0f;
         mySimpleXYPlot.setDomainBoundaries(izq - 1.0f, der + 1.0f, BoundaryMode.FIXED);
 
         mySimpleXYPlot.redraw();
@@ -196,9 +197,9 @@ public class Grapher extends AppCompatActivity {
                 clean();
                 izq = minXY.x + 0.5f;
                 der = maxXY.x - 0.5f;
-                if(izq >= -0.1 || der <= 0.1 ) {
+                if (izq >= -0.1 || der <= 0.1) {
                     message();
-                }else {
+                } else {
                     mySimpleXYPlot.setDomainBoundaries(izq, der, BoundaryMode.FIXED);
                     mySimpleXYPlot.redraw();
                 }
@@ -215,7 +216,7 @@ public class Grapher extends AppCompatActivity {
                 arriba = maxXY.y + 1.0f;
                 abajo = minXY.y - 1.0f;
                 mySimpleXYPlot.setDomainBoundaries(izq, der, BoundaryMode.FIXED);
-                mySimpleXYPlot.setRangeBoundaries(abajo,arriba,BoundaryMode.FIXED);
+                mySimpleXYPlot.setRangeBoundaries(abajo, arriba, BoundaryMode.FIXED);
                 mySimpleXYPlot.redraw();
             }
         });
@@ -223,17 +224,17 @@ public class Grapher extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
-    public void message(){
+    public void message() {
         Toast.makeText(this, "Very close", Toast.LENGTH_SHORT).show();
     }
 
     // clean arraylist
-    public void clean(){
+    public void clean() {
 
         arreglo.clear();
         arreglo_dfx.clear();
@@ -250,7 +251,7 @@ public class Grapher extends AppCompatActivity {
 
         Evaluator myParser = new Evaluator();
 
-        if(delta_stg == null && x1_stg == null) {
+        if (delta_stg == null && x1_stg == null) {
 
             for (double x = x0; x < x1; x += 0.01) {
 
@@ -260,7 +261,7 @@ public class Grapher extends AppCompatActivity {
             }
             rePaint();
 
-        }else if (delta_stg == null && x1 != x0){
+        } else if (delta_stg == null && x1 != x0) {
             for (double x = x0; x < x1; x += 0.01) {
 
                 arreglo.add(x);
@@ -269,7 +270,7 @@ public class Grapher extends AppCompatActivity {
             }
             rePaint();
 
-        }else if(delta_stg != null){
+        } else if (delta_stg != null) {
             for (double x = x0; x < x1; x += delta) {
 
                 arreglo.add(x);
@@ -285,7 +286,7 @@ public class Grapher extends AppCompatActivity {
     ArrayList<Double> arreglo_gx = new ArrayList<Double>();
 
     // calculate function gx and graph
-    public void calcGx(){
+    public void calcGx() {
         Evaluator myParser = new Evaluator();
 
         for (double x = x0; x < x1; x += 0.01) {
@@ -312,7 +313,7 @@ public class Grapher extends AppCompatActivity {
     ArrayList<Double> arreglo_dfx = new ArrayList<Double>();
 
     // calculate function f'x and graph
-    public void calcdFx(){
+    public void calcdFx() {
         Evaluator myParser = new Evaluator();
 
         for (double x = x0; x < x1; x += 0.01) {
@@ -338,7 +339,7 @@ public class Grapher extends AppCompatActivity {
     ArrayList<Double> arreglo_d2fx = new ArrayList<Double>();
 
     // calculate function f''x and graph
-    public void calcd2Fx(){
+    public void calcd2Fx() {
         Evaluator myParser = new Evaluator();
 
         for (double x = x0; x < x1; x += 0.01) {
@@ -362,7 +363,7 @@ public class Grapher extends AppCompatActivity {
     }
 
     // calculate function fx and graph
-    public void rePaint(){
+    public void rePaint() {
 
         drawSerie = new SimpleXYSeries(arreglo, SimpleXYSeries.ArrayFormat.XY_VALS_INTERLEAVED, "F(x)");
 
@@ -376,13 +377,13 @@ public class Grapher extends AppCompatActivity {
         minXY = new PointF(mySimpleXYPlot.getCalculatedMinX().floatValue(), mySimpleXYPlot.getCalculatedMinY().floatValue());
         maxXY = new PointF(mySimpleXYPlot.getCalculatedMaxX().floatValue(), mySimpleXYPlot.getCalculatedMaxY().floatValue());
 
-        if(gx_estado){
+        if (gx_estado) {
             calcGx();
         }
-        if( dfx_estado){
+        if (dfx_estado) {
             calcdFx();
         }
-        if( d2fx_estado){
+        if (d2fx_estado) {
             calcd2Fx();
         }
 

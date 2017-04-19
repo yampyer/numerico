@@ -177,7 +177,6 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
             d2Fx = myParser.evaluate("x", xInicial, funciond2fxRM);
             xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
             xError = tolerancia + 1;
-            xErrorR = tolerancia + 1;
 
             setContentView(R.layout.activity_table);
             
@@ -208,7 +207,7 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
 
             tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
 
-            for (int i = 1; (fx != 0) && (xAux != 0) && (xError > tolerancia) && (xErrorR > tolerancia) && (i < iteraciones); i++) {
+            for (int i = 0; (fx != 0) && (xAux != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
 
                 x1 = xInicial - (fx * dFx / xAux);
                 fx = myParser.evaluate("x", x1, funcionRM);
@@ -219,7 +218,7 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
                 xErrorR = Math.abs((x1 - xInicial) / x1);
                 xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
 
-                cosa = i;
+                cosa = i + 1;
                 str_n = " " + String.valueOf(cosa) + " ";
                 str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
                 str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
@@ -230,93 +229,15 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
 
                 tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
 
-
             }
             if (fx == 0) {
                 Mensaje(xInicial + " is a root");
-
-                x1 = xInicial - (fx * dFx / xAux);
-                fx = myParser.evaluate("x", x1, funcionRM);
-                dFx = myParser.evaluate("x", x1, funciondfxRM);
-                d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-                xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
-
             } else if (xError < tolerancia) {
-                Mensaje(x1 + " is an approximation to a root with a tolerance = " + tolerancia + ".");
-
-                x1 = xInicial - (fx * dFx / xAux);
-                fx = myParser.evaluate("x", x1, funcionRM);
-                dFx = myParser.evaluate("x", x1, funciondfxRM);
-                d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-                xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
+                Mensaje(x1 + " is an approximation to a root with a tolerance = " + tolerancia);
             } else if (xAux == 0) {
                 Mensaje("Method Error");
-
-                x1 = xInicial - (fx * dFx / xAux);
-                fx = myParser.evaluate("x", x1, funcionRM);
-                dFx = myParser.evaluate("x", x1, funciondfxRM);
-                d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-                xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
             } else {
                 Mensaje("Failure in " + iteraciones + " iterations");
-
-                x1 = xInicial - (fx * dFx / xAux);
-                fx = myParser.evaluate("x", x1, funcionRM);
-                dFx = myParser.evaluate("x", x1, funciondfxRM);
-                d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-                xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
             }
 
         } catch (NumberFormatException e) {

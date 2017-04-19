@@ -163,7 +163,6 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
                 xMedio = (xInicial + xSiguiente) / 2;
                 fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
                 xError = tolerancia + 1;
-                xErrorR = tolerancia + 1;
 
                 setContentView(R.layout.activity_table);
 
@@ -195,8 +194,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
 
                 tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
 
-
-                for (int i = 0; (i < iteraciones) && (xError > tolerancia) && (xErrorR > tolerancia) && (fXMedio != 0); i++) {
+                for (int i = 0; (fXMedio != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
 
                     if ((fX0 * fXMedio) < 0) {
                         xSiguiente = xMedio;
@@ -227,53 +225,10 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
 
                 if (fXMedio == 0) {
                     Mensaje(xMedio + " is a root");
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = " " + String.valueOf(formatter.format(fXMedio)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
-
                 } else if (xError < tolerancia) {
                     Mensaje(xMedio + " is an approximation to a root with a tolerance = " + tolerancia);
-
-                    xMedio = (xInicial + xSiguiente) / 2;
-                    xAux = xMedio;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
-
-                    str_n = String.valueOf(cosa + 1);
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = String.valueOf(fXMedio);
-                    str_err = String.valueOf(formatter.format(xError));
-                    str_errR = String.valueOf(formatter.format(xErrorR));
-
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
                 } else {
                     Mensaje("Failure in " + iteraciones + " iterations");
-
-                    xMedio = (xInicial + xSiguiente) / 2;
-                    xAux = xMedio;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionbisc);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_sig = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xmed = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxmed = " " + String.valueOf(formatter.format(fXMedio)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaBisc(str_n, str_ini, str_sig, str_xmed, str_fxmed, str_err, str_errR);
                 }
             } else {
                 Mensaje("The interval is not optimum");

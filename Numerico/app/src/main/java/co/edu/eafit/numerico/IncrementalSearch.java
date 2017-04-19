@@ -172,7 +172,7 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
 
                 tablitaBsq(str_n, str_ini, str_fx);
 
-                for (int i = 0; (i < iteraciones) && (fX0 * fX1) > 0; i++) {
+                for (int i = 0; ((fX0 * fX1) > 0) && (i < iteraciones); i++) {
                     xInicial = x1;
                     fX0 = fX1;
                     x1 = xInicial + xDelta;
@@ -216,17 +216,6 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
 
                 } else {
                     Mensaje("Failure in " + iteraciones + " iterations");
-
-                    x1 = xInicial + xDelta;
-                    xInicial = x1;
-                    fX1 = myParser.evaluate("x", x1, funcionbsq);
-                    fX0 = fX1;
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_fx = " " + String.valueOf(formatter.format(fX0)) + " ";
-
-                    tablitaBsq(str_n, str_ini, str_fx);
                 }
             }
         } catch (NumberFormatException e) {

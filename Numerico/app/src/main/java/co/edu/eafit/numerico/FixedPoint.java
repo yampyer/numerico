@@ -159,7 +159,6 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             
             fX0 = myParser.evaluate("x", xInicial, funcionPF);
             xError = tolerancia + 1;
-            xErrorR = tolerancia + 1;
 
             setContentView(R.layout.activity_table);
 
@@ -188,7 +187,7 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
 
 
-            for (int i = 1; (fX0 != 0) && (xError > tolerancia) && (xErrorR > tolerancia) && (i < iteraciones); i++) {
+            for (int i = 1; (fX0 != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
                 x1 = myParser.evaluate("x", xInicial, funcionG);
                 fX0 = myParser.evaluate("x", x1, funcionPF);
                 xError = Math.abs(x1 - xInicial);
@@ -207,55 +206,10 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
 
             if (fX0 == 0) {
                 Mensaje(xInicial + " is a root");
-
-                x1 = myParser.evaluate("x", xInicial, funcionG);
-                fX0 = myParser.evaluate("x", x1, funcionPF);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fX0)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
-
             } else if (xError < tolerancia || xErrorR < tolerancia) {
                 Mensaje(xInicial + " is an approximation to a root with a tolerance = " + tolerancia + ".");
-
-                x1 = myParser.evaluate("x", xInicial, funcionG);
-                fX0 = myParser.evaluate("x", x1, funcionPF);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fX0)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
-
             } else {
                 Mensaje("Failure in " + iteraciones + " iterations");
-
-                x1 = myParser.evaluate("x", xInicial, funcionG);
-                fX0 = myParser.evaluate("x", x1, funcionPF);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fX0)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
-
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");

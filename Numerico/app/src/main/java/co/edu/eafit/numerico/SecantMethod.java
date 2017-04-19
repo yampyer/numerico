@@ -169,7 +169,6 @@ public class SecantMethod extends AppCompatActivity implements View.OnClickListe
             } else {
                 fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
                 xError = tolerancia + 1;
-                xErrorR = tolerancia + 1;
                 xAux = fX1 - fX0;
 
                 setContentView(R.layout.activity_table);
@@ -192,13 +191,21 @@ public class SecantMethod extends AppCompatActivity implements View.OnClickListe
 
                 str_n = String.valueOf(0);
                 str_ini = String.valueOf(xInicial);
+                str_xn = String.valueOf(fX0);
+                str_err = String.valueOf("Doesn't exist");
+                str_errR = String.valueOf("Doesn't exist");
+
+                tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
+
+                str_n = String.valueOf(1);
+                str_ini = String.valueOf(xSiguiente);
                 str_xn = String.valueOf(fX1);
                 str_err = String.valueOf("Doesn't exist");
                 str_errR = String.valueOf("Doesn't exist");
 
                 tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
 
-                for (int i = 0; (fX1 != 0) && (xAux != 0) && (xError > tolerancia) && (xErrorR > tolerancia) && (i < iteraciones); i++) {
+                for (int i = 0; (fX1 != 0) && (xAux != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
                     x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
                     xError = Math.abs(x2 - xSiguiente);
                     xErrorR = Math.abs((x2 - xSiguiente) / x2);
@@ -208,7 +215,7 @@ public class SecantMethod extends AppCompatActivity implements View.OnClickListe
                     fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
                     xAux = fX1 - fX0;
 
-                    cosa = i + 1;
+                    cosa = i + 2;
                     str_n = " " + String.valueOf(cosa) + " ";
                     str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
                     str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
@@ -221,83 +228,12 @@ public class SecantMethod extends AppCompatActivity implements View.OnClickListe
                 }
                 if (fX1 == 0) {
                     Mensaje(xSiguiente + " is a root");
-
-                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
-                    xSiguiente = x2;
-                    xError = Math.abs(x2 - xSiguiente);
-                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
-                    xInicial = xSiguiente;
-                    fX0 = fX1;
-                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
-                    xAux = fX1 - fX0;
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
-
                 } else if (xError < tolerancia) {
-                    Mensaje(xSiguiente + " is an approximation to a root with a tolerance = " + tolerancia + ".");
-
-                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
-                    xSiguiente = x2;
-                    xError = Math.abs(x2 - xSiguiente);
-                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
-                    xInicial = xSiguiente;
-                    fX0 = fX1;
-                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
-                    xAux = fX1 - fX0;
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
-
+                    Mensaje(xSiguiente + " is an approximation to a root with a tolerance = " + tolerancia);
                 } else if (xAux == 0) {
                     Mensaje("There is a possible multiple root");
-
-                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
-                    xSiguiente = x2;
-                    xError = Math.abs(x2 - xSiguiente);
-                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
-                    xInicial = xSiguiente;
-                    fX0 = fX1;
-                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
-                    xAux = fX1 - fX0;
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_xn = " " + String.valueOf(formatter.format(fX1)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
-
                 } else {
                     Mensaje("Failure in " + iteraciones + " iterations");
-
-                    x2 = xSiguiente - (fX1 * ((xSiguiente - xInicial) / xAux));
-                    xSiguiente = x2;
-                    xError = Math.abs(x2 - xSiguiente);
-                    xErrorR = Math.abs((x2 - xSiguiente) / x2);
-                    xInicial = xSiguiente;
-                    fX0 = fX1;
-                    fX1 = myParser.evaluate("x", xSiguiente, funcionMS);
-                    xAux = fX1 - fX0;
-
-                    str_n = String.valueOf(cosa + 1);
-                    str_ini = String.valueOf(xSiguiente);
-                    str_xn = String.valueOf(fX1);
-                    str_err = String.valueOf(formatter.format(xError));
-                    str_errR = String.valueOf(formatter.format(xErrorR));
-
-                    tablitaRF(str_n, str_ini, str_xn, str_err, str_errR);
                 }
             }
         } catch (NumberFormatException e) {

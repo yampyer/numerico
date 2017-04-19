@@ -193,10 +193,9 @@ public class NewtonMethod extends AppCompatActivity implements View.OnClickListe
 
             tablitaMN(str_n, str_ini, str_fxn, str_fxxn, str_err, str_errR);
 
-
             xError = tolerancia + 1;
-            xErrorR = tolerancia + 1;
-            for (int i = 0; (fx != 0) && (dFx != 0) && (xError > tolerancia) && (xErrorR > tolerancia) && (i < iteraciones); i++) {
+
+            for (int i = 0; (fx != 0) && (dFx != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
                 x1 = xInicial - (fx / dFx);
                 fx = myParser.evaluate("x", x1, funcionMN);
                 dFx = myParser.evaluate("x", x1, funcionDFxMN);
@@ -217,79 +216,12 @@ public class NewtonMethod extends AppCompatActivity implements View.OnClickListe
             }
             if (fx == 0) {
                 Mensaje(xInicial + " is a root");
-
-                x1 = xInicial - (fx / dFx);
-                fx = myParser.evaluate("x", x1, funcionMN);
-                dFx = myParser.evaluate("x", x1, funcionDFxMN);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaMN(str_n, str_ini, str_fxn, str_fxxn, str_err, str_errR);
-
             } else if (xError < tolerancia) {
                 Mensaje(x1 + " is an approximation to a root with a tolerance = " + tolerancia + ".");
-
-                x1 = xInicial - (fx / dFx);
-                fx = myParser.evaluate("x", x1, funcionMN);
-                dFx = myParser.evaluate("x", x1, funcionDFxMN);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaMN(str_n, str_ini, str_fxn, str_fxxn, str_err, str_errR);
-
             } else if (dFx == 0) {
                 Mensaje(x1 + " possibly is a multiple root");
-
-                x1 = xInicial - (fx / dFx);
-                fx = myParser.evaluate("x", x1, funcionMN);
-                dFx = myParser.evaluate("x", x1, funcionDFxMN);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaMN(str_n, str_ini, str_fxn, str_fxxn, str_err, str_errR);
-
             } else {
                 Mensaje("Failure in " + iteraciones + " iterations");
-                x1 = xInicial - (fx / dFx);
-                fx = myParser.evaluate("x", x1, funcionMN);
-                dFx = myParser.evaluate("x", x1, funcionDFxMN);
-                xError = Math.abs(x1 - xInicial);
-                xErrorR = Math.abs((x1 - xInicial) / x1);
-                xInicial = x1;
-
-                str_n = " " + String.valueOf(cosa + 1) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
-                str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
-                str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                tablitaMN(str_n, str_ini, str_fxn, str_fxxn, str_err, str_errR);
-
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");

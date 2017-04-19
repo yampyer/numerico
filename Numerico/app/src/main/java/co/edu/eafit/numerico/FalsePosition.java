@@ -170,10 +170,9 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                 Mensaje(xSiguiente + " is a root");
 
             } else if ((fX0 * fX1) < 0) {
-                xMedio = xInicial - ((fX0 * (xSiguiente - xInicial)) / (fX1 - fX0));
+                xMedio = xInicial - ((fX0 * (xInicial - xSiguiente)) / (fX0 - fX1));
                 fXMedio = myParser.evaluate("x", xMedio, funcionRF);
                 xError = tolerancia + 1;
-                xErrorR = tolerancia + 1;
 
                 setContentView(R.layout.activity_table);
                 Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -183,23 +182,27 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                 count = 0;
 
                 String str_n = String.valueOf("  n   ");
-                String str_ini = String.valueOf(" Xn ");
-                String str_fxn = String.valueOf(" f(Xn) ");
+                String str_ini = String.valueOf(" Xi ");
+                String str_nxt = String.valueOf(" Xs ");
+                String str_m = String.valueOf(" Xm ");
+                String str_fxn = String.valueOf(" f(Xm) ");
                 String str_err = String.valueOf(" Absolute Error ");
                 String str_errR = String.valueOf(" Relative Error ");
 
-                tablitaRF(str_n, str_ini, str_fxn, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
                 count++;
 
                 str_n = String.valueOf(0);
                 str_ini = String.valueOf(xInicial);
+                str_nxt = String.valueOf(xSiguiente);
+                str_m = String.valueOf(xMedio);
                 str_fxn = String.valueOf(fXMedio);
                 str_err = String.valueOf("Doesn't exist");
                 str_errR = String.valueOf("Doesn't exist");
 
-                tablitaRF(str_n, str_ini, str_fxn, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
 
-                for (int i = 1; (i < iteraciones) && (xError > tolerancia) && (xErrorR > tolerancia) && (fXMedio != 0); i++) {
+                for (int i = 1; (fXMedio != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
                     if ((fX0 * fXMedio) < 0) {
                         xSiguiente = xMedio;
                         fX1 = fXMedio;
@@ -207,52 +210,29 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                         xInicial = xMedio;
                         fX0 = fXMedio;
                     }
-                    xAux = xMedio;
-                    xMedio = xInicial - ((fX0 * (xSiguiente - xInicial)) / (fX1 - fX0));
 
+                    xAux = xMedio;
+                    xMedio = xInicial - ((fX0 * (xInicial - xSiguiente)) / (fX0 - fX1));
                     fXMedio = myParser.evaluate("x", xMedio, funcionRF);
                     xError = Math.abs(xMedio - xAux);
                     xErrorR = Math.abs((xMedio - xAux) / xMedio);
 
                     cosa = i;
                     str_n = " " + String.valueOf(cosa) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xMedio)) + " ";
+                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                    str_nxt = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
+                    str_m = " " + String.valueOf(formatter2.format(xMedio)) + " ";
                     str_fxn = " " + String.valueOf(formatter.format(fXMedio)) + " ";
                     str_err = " " + String.valueOf(formatter.format(xError)) + " ";
                     str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                    tablitaRF(str_n, str_ini, str_fxn, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
 
                 }
                 if (fXMedio == 0) {
                     Mensaje(xMedio + " is a root");
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxn = " " + String.valueOf(formatter.format(fXMedio)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaRF(str_n, str_ini, str_fxn, str_err, str_errR);
-
                 } else if (xError < tolerancia) {
-                    Mensaje(xMedio + " is an approximation to a root with a tolerance = " + tolerancia + ".");
-
-                    xMedio = xInicial - ((fX0 * (xSiguiente - xInicial)) / (fX1 - fX0));
-                    xAux = xMedio;
-                    fXMedio = myParser.evaluate("x", xMedio, funcionRF);
-                    xError = Math.abs(xMedio - xAux);
-                    xErrorR = Math.abs((xMedio - xAux) / xMedio);
-
-                    str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xMedio)) + " ";
-                    str_fxn = " " + String.valueOf(formatter.format(fXMedio)) + " ";
-                    str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
-
-                    tablitaRF(str_n, str_ini, str_fxn, str_err, str_errR);
-
-
+                    Mensaje(xMedio + " is an approximation to a root with a tolerance = " + tolerancia);
                 } else {
                     Mensaje("Failure in " + iteraciones + " iterations");
                 }
@@ -287,7 +267,7 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void tablitaRF(String str_n, String str_ini, String str_fxn, String str_err, String str_errR) {
+    public void tablitaRF(String str_n, String str_ini, String str_nxt, String str_m, String str_fxn, String str_err, String str_errR) {
 
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
 
@@ -320,6 +300,22 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         labelInicial.setText(str_ini);
         labelInicial.setTextColor(Color.BLACK);
         tr.addView(labelInicial);
+
+        TextView labelNext = new TextView(this);
+        labelNext.setId(200 + count);
+        labelNext.setTextSize(15);
+        labelNext.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        labelNext.setText(str_nxt);
+        labelNext.setTextColor(Color.BLACK);
+        tr.addView(labelNext);
+
+        TextView labelM = new TextView(this);
+        labelM.setId(200 + count);
+        labelM.setTextSize(15);
+        labelM.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        labelM.setText(str_m);
+        labelM.setTextColor(Color.BLACK);
+        tr.addView(labelM);
 
         TextView labelFXMedio = new TextView(this);
         labelFXMedio.setId(200 + count);
