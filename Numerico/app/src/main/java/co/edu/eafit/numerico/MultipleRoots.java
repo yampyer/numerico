@@ -209,13 +209,13 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
 
             for (int i = 0; (fx != 0) && (xAux != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
 
-                x1 = xInicial - (fx * dFx / xAux);
+                x1 = xInicial - ((fx * dFx) / xAux);
                 fx = myParser.evaluate("x", x1, funcionRM);
                 dFx = myParser.evaluate("x", x1, funciondfxRM);
                 d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xInicial = x1;
                 xError = Math.abs(x1 - xInicial);
                 xErrorR = Math.abs((x1 - xInicial) / x1);
+                xInicial = x1;
                 xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
 
                 cosa = i + 1;
