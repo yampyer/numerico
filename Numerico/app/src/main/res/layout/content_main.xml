@@ -12,7 +12,7 @@
         android:id="@+id/oneVariableEquations_btn"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="One Variable Equations"
+        android:background="@drawable/one_variable_equations_btn"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="80dp"
         android:layout_marginTop="150dp"
@@ -23,7 +23,7 @@
         android:id="@+id/equationSystems_btn"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="Equation Systems"
+        android:background="@drawable/equation_systems_btn"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="184dp"
         android:layout_below="@+id/oneVariableEquations_btn"
@@ -34,11 +34,11 @@
         android:id="@+id/interpolation_btn"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="Interpolation"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="294dp"
         android:layout_below="@+id/equationSystems_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/interpolation_btn"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="294dp" />
 
 </RelativeLayout>

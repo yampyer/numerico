@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Numerico</string>
     <string name="title_activity_main">Numerico</string>
+    <string name="fill_in_all_fields">Fill the matrix</string>
+    <string name="matrix_size">Enter the size of the matrix</string>
+    <string name="enter_valid_unk_number">Enter the size of the matrix</string>
+    <string name="entered_values_format_not_valid">Entered values format are not valid</string>
 </resources>

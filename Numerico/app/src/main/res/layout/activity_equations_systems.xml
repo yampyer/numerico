@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.edu.eafit.numerico.EquationsSystems">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:padding="30dp">
+
+        <Button
+            android:id="@+id/gaussian_elimination_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="63dp"
+            android:text="Gaussian Elimination"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/cholesky_btn" />
+
+        <Button
+            android:id="@+id/doolittle_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="22dp"
+            android:text="Doolittle"
+            android:layout_alignTop="@+id/gaussian_elimination_btn"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/gaussian_elimination_btn" />
+
+        <Button
+            android:id="@+id/cholesky_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_alignBottom="@+id/crout_btn"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="18dp"
+            android:text="Cholesky" />
+
+        <Button
+            android:id="@+id/crout_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_alignStart="@+id/doolittle_btn"
+            android:layout_below="@+id/doolittle_btn"
+            android:layout_marginTop="34dp"
+            android:text="Crout" />
+
+        <Button
+            android:id="@+id/iterative_methods_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/cholesky_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Iterative Methods" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

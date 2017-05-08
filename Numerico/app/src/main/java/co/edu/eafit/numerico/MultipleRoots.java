@@ -166,8 +166,8 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         funcionRM = polinomioRM.getText().toString();
         funciondfxRM = polinomioFxRM.getText().toString();
         funciond2fxRM = polinomioFxxRM.getText().toString();
-        NumberFormat formatter = new DecimalFormat("0.###E0");
-        NumberFormat formatter2 = new DecimalFormat("0.#####E0");
+        NumberFormat formatter = new DecimalFormat("#.#E0");
+        NumberFormat formatter2 = new DecimalFormat("#.#E0");
 
         try {
             Evaluator myParser = new Evaluator();
@@ -207,7 +207,7 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
 
             tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
 
-            for (int i = 0; (fx != 0) && (xAux != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
+            for (int i = 0; ((fx != 0) && (xError > tolerancia) && (xAux != 0) && (i < iteraciones)); i++) {
 
                 x1 = xInicial - ((fx * dFx) / xAux);
                 fx = myParser.evaluate("x", x1, funcionRM);

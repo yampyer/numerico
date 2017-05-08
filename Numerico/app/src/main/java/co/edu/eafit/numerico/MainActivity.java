@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(oneVariableEquations);
                 break;
             case R.id.equationSystems_btn:
-                Intent equationSystems = new Intent(this, OneVariableInput.class);
+                Intent equationSystems = new Intent(this, MatrixData.class);
                 startActivity(equationSystems);
                 break;
             case R.id.interpolation_btn:

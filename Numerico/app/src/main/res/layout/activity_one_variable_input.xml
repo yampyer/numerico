@@ -116,11 +116,10 @@
         <Button
             android:id="@+id/continue_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/gxTodos_edt"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="54dp"
-            android:text="Continue" />
+            android:background="@drawable/continue_btn" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
