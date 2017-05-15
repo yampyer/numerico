@@ -10,11 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
     EditText stringIteraciones;
     EditText stringTolerancia;
     EditText polinomioRF;
+    RadioGroup errorType;
 
     String valorInicial;
     String valorSiguiente;
@@ -44,6 +49,8 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
     static String funcionRF2;
 
     boolean estoyTabla = false;
+    boolean absoluteError = true;
+    boolean relativeError = false;
 
     double xInicial;
     double xSiguiente;
@@ -74,6 +81,8 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         if (!OneVariableInput.fXTodos.matches("")) {
             polinomioRF.setText(OneVariableInput.fXTodos);
         }
+
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
 
         Button calcularRF_btn = (Button) findViewById(R.id.calculate_btn);
         calcularRF_btn.setOnClickListener(this);
@@ -107,6 +116,13 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         valorIteraciones = stringIteraciones.getText().toString();
         valorTolerancia = stringTolerancia.getText().toString();
         funcionRF = polinomioRF.getText().toString();
+        if (errorType.getCheckedRadioButtonId() == R.id.absoluteErrorButton) {
+            absoluteError = true;
+            relativeError = false;
+        } else {
+            absoluteError = false;
+            relativeError = true;
+        }
     }
 
     public void onClick(final View v) {
@@ -123,6 +139,10 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                     val_iniS = valorSiguiente;
                     val_iniT = valorTolerancia;
                     funcionRF2 = funcionRF;
+                    if (OneVariableInput.fXTodos.matches("")) {
+                        OneVariableInput.fXTodos_edt.setText(funcionRF2);
+                        OneVariableInput.fXTodos = funcionRF2;
+                    }
                     comprobarValorRF();
                 }
 
@@ -150,15 +170,12 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         } else {
             metodoReglaFalsa();
         }
-
-
     }
 
 
     void metodoReglaFalsa() {
         funcionRF = polinomioRF.getText().toString();
-        NumberFormat formatter = new DecimalFormat("0.##E0");
-        NumberFormat formatter2 = new DecimalFormat("0.#####E0");
+        NumberFormat formatter = new DecimalFormat("#.#E0");
         try {
             Evaluator myParser = new Evaluator();
 
@@ -184,23 +201,26 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                 String str_n = String.valueOf("  n   ");
                 String str_ini = String.valueOf(" Xi ");
                 String str_nxt = String.valueOf(" Xs ");
-                String str_m = String.valueOf(" Xm ");
-                String str_fxn = String.valueOf(" f(Xm) ");
-                String str_err = String.valueOf(" Absolute Error ");
-                String str_errR = String.valueOf(" Relative Error ");
+                String str_m = String.valueOf("  Xm  ");
+                String str_fxn = String.valueOf("  f(Xm) ");
+                String str_err;
+                if (absoluteError) {
+                    str_err = String.valueOf(" Absolute Error ");
+                } else {
+                    str_err = String.valueOf(" Relative Error ");
+                }
 
-                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err);
                 count++;
 
                 str_n = String.valueOf(0);
                 str_ini = String.valueOf(xInicial);
-                str_nxt = String.valueOf(xSiguiente);
+                str_nxt = String.valueOf(xSiguiente) + " ";
                 str_m = String.valueOf(xMedio);
-                str_fxn = String.valueOf(fXMedio);
-                str_err = String.valueOf("Doesn't exist");
-                str_errR = String.valueOf("Doesn't exist");
+                str_fxn = " " + String.valueOf(formatter.format(fXMedio)) + " ";
+                str_err = String.valueOf("-------");
 
-                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
+                tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err);
 
                 for (int i = 1; (fXMedio != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
                     if ((fX0 * fXMedio) < 0) {
@@ -214,19 +234,22 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                     xAux = xMedio;
                     xMedio = xInicial - ((fX0 * (xInicial - xSiguiente)) / (fX0 - fX1));
                     fXMedio = myParser.evaluate("x", xMedio, funcionRF);
-                    xError = Math.abs(xMedio - xAux);
+                    if (absoluteError) {
+                        xError = Math.abs(xMedio - xAux);
+                    } else {
+                        xError = Math.abs((xMedio - xAux) / xMedio);
+                    }
                     xErrorR = Math.abs((xMedio - xAux) / xMedio);
 
                     cosa = i;
                     str_n = " " + String.valueOf(cosa) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
-                    str_nxt = " " + String.valueOf(formatter2.format(xSiguiente)) + " ";
-                    str_m = " " + String.valueOf(formatter2.format(xMedio)) + " ";
+                    str_ini = " " + String.valueOf(formatter.format(xInicial)) + " ";
+                    str_nxt = " " + String.valueOf(formatter.format(xSiguiente)) + " ";
+                    str_m = " " + String.valueOf(xMedio) + " ";
                     str_fxn = " " + String.valueOf(formatter.format(fXMedio)) + " ";
                     str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                    str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                    tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err, str_errR);
+                    tablitaRF(str_n, str_ini, str_nxt, str_m, str_fxn, str_err);
 
                 }
                 if (fXMedio == 0) {
@@ -234,22 +257,20 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
                 } else if (xError < tolerancia) {
                     Mensaje(xMedio + " is an approximation to a root with a tolerance = " + tolerancia);
                 } else {
-                    Mensaje("Failure in " + iteraciones + " iterations");
+                    Mensaje("Failure in " + cosa + " iterations");
                 }
 
             } else {
-                Mensaje("The interval is not optimum");
+                Mensaje("This is a bad interval");
 
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");
 
         } catch (Exception e) {
-            Mensaje("Error: " + e.getMessage());
-
+            Mensaje("Error: Function not defined in the given interval");
         }
     }
-
 
     public void Mensaje(String s) {
 
@@ -266,8 +287,7 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         dialog.show();
     }
 
-
-    public void tablitaRF(String str_n, String str_ini, String str_nxt, String str_m, String str_fxn, String str_err, String str_errR) {
+    public void tablitaRF(String str_n, String str_ini, String str_nxt, String str_m, String str_fxn, String str_err) {
 
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
 
@@ -333,14 +353,6 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         labelErr.setTextColor(Color.BLACK);
         tr.addView(labelErr);
 
-        TextView labelErrR = new TextView(this);
-        labelErrR.setId(200 + count);
-        labelErrR.setTextSize(15);
-        labelErrR.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelErrR.setText(str_errR);
-        labelErrR.setTextColor(Color.BLACK);
-        tr.addView(labelErrR);
-
         // finally add this to the table row
         tl.addView(tr, new TableLayout.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
         count++;
@@ -386,16 +398,28 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
 
     public void help() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).setMessage("This method has all the characteristics and conditions of the Bisection method, except for the way how the midpoint inside the given interval is calculated.\n" +
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View dialogView = inflater.inflate(R.layout.alert_dialog_with_image, null);
+        TextView text1 = (TextView) dialogView.findViewById(R.id.textView1);
+        text1.setText("This method has all the characteristics and conditions of the Bisection method, except for the way how the midpoint inside the given interval is calculated.\n" +
                 "\n" +
                 "In this case, the line joining the points (a, f(a)) and (b, f(b)) is found and, because one of that points is above the x-axis and the other one is below it, we know that there’s a cut-off point between the line and the mentioned axis.\n" +
                 "\n" +
                 "This cut-off point has the form (Xm, 0), where Xm represents the searched midpoint.");
+        ImageView image1 = (ImageView) dialogView.findViewById(R.id.dialog_imageview1);
+        image1.setImageResource(R.drawable.false_position_equation);
+        builder.setView(dialogView)
+                // Add action buttons
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -413,6 +437,17 @@ public class FalsePosition extends AppCompatActivity implements View.OnClickList
         stringIteraciones.setText(val_iniIt);
         stringTolerancia.setText(val_iniT);
         polinomioRF.setText(funcionRF2);
+
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
+
+        RadioButton error;
+
+        if (absoluteError) {
+            error = (RadioButton) errorType.getChildAt(0);
+        } else {
+            error = (RadioButton) errorType.getChildAt(1);
+        }
+        errorType.check(error.getId());
 
         Button calcularRF_btn = (Button) findViewById(R.id.calculate_btn);
         calcularRF_btn.setOnClickListener(this);

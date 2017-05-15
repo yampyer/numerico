@@ -10,11 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,6 +35,7 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
     EditText stringTolerancia;
     EditText polinomioRM;
     EditText polinomioFxxRM;
+    RadioGroup errorType;
 
     String valorInicial;
     String funciondfxRM;
@@ -47,6 +52,8 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
     static String funcionRM3;
 
     boolean estoyTabla = false;
+    boolean absoluteError = true;
+    boolean relativeError = false;
 
     double xInicial;
     double tolerancia;
@@ -84,6 +91,8 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
             polinomioFxxRM.setText(OneVariableInput.d2fXTodos);
         }
 
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
+
         Button calcularRM_btn = (Button) findViewById(R.id.calculate_btn);
         calcularRM_btn.setOnClickListener(this);
 
@@ -106,6 +115,13 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         funcionRM = polinomioRM.getText().toString();
         funciondfxRM = polinomioFxRM.getText().toString();
         funciond2fxRM = polinomioFxxRM.getText().toString();
+        if (errorType.getCheckedRadioButtonId() == R.id.absoluteErrorButton) {
+            absoluteError = true;
+            relativeError = false;
+        } else {
+            absoluteError = false;
+            relativeError = true;
+        }
     }
 
     @Override
@@ -133,6 +149,18 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
                     funcionRM1 = funcionRM;
                     funcionRM2 = funciondfxRM;
                     funcionRM3 = funciond2fxRM;
+                    if (OneVariableInput.fXTodos.matches("")) {
+                        OneVariableInput.fXTodos_edt.setText(funcionRM1);
+                        OneVariableInput.fXTodos = funcionRM1;
+                    }
+                    if (OneVariableInput.dfXTodos.matches("")) {
+                        OneVariableInput.dfXTodos_edt.setText(funcionRM2);
+                        OneVariableInput.dfXTodos = funcionRM2;
+                    }
+                    if (OneVariableInput.d2fXTodos.matches("")) {
+                        OneVariableInput.d2fXTodos_edt.setText(funcionRM3);
+                        OneVariableInput.d2fXTodos = funcionRM3;
+                    }
                     comprobarValorRM();
                 }
 
@@ -152,7 +180,6 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         tolerancia = Double.parseDouble(valorTolerancia);
         iteraciones = Integer.parseInt(valorIteraciones);
 
-
         if (iteraciones == 0) {
             Mensaje("Iterations has to be major than zero");
             stringIteraciones.setText(" ");
@@ -167,7 +194,6 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         funciondfxRM = polinomioFxRM.getText().toString();
         funciond2fxRM = polinomioFxxRM.getText().toString();
         NumberFormat formatter = new DecimalFormat("#.#E0");
-        NumberFormat formatter2 = new DecimalFormat("#.#E0");
 
         try {
             Evaluator myParser = new Evaluator();
@@ -191,21 +217,24 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
             String str_fxn = String.valueOf(" f(Xn) ");
             String str_fxxn = String.valueOf(" f'(Xn) ");
             String str_fxxxn = String.valueOf(" f''(Xn) ");
-            String str_err = String.valueOf(" Absolute Error ");
-            String str_errR = String.valueOf(" Relative Error ");
+            String str_err;
+            if (absoluteError) {
+                str_err = String.valueOf(" Absolute Error ");
+            } else {
+                str_err = String.valueOf(" Relative Error ");
+            }
 
-            tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
+            tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err);
             count++;
 
             str_n = String.valueOf(0);
             str_ini = String.valueOf(xInicial);
-            str_fxn = String.valueOf(fx);
-            str_fxxn = String.valueOf(dFx);
-            str_fxxxn = String.valueOf(d2Fx);
-            str_err = String.valueOf("Doesn't exist");
-            str_errR = String.valueOf("Doesn't exist");
+            str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
+            str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
+            str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
+            str_err = String.valueOf("-------");
 
-            tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
+            tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err);
 
             for (int i = 0; ((fx != 0) && (xError > tolerancia) && (xAux != 0) && (i < iteraciones)); i++) {
 
@@ -213,37 +242,40 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
                 fx = myParser.evaluate("x", x1, funcionRM);
                 dFx = myParser.evaluate("x", x1, funciondfxRM);
                 d2Fx = myParser.evaluate("x", x1, funciond2fxRM);
-                xError = Math.abs(x1 - xInicial);
+                if (absoluteError) {
+                    xError = Math.abs(x1 - xInicial);
+                } else {
+                    xError = Math.abs((x1 - xInicial) / x1);
+                }
                 xErrorR = Math.abs((x1 - xInicial) / x1);
                 xInicial = x1;
                 xAux = (Math.pow(dFx, 2)) - (fx * d2Fx);
 
                 cosa = i + 1;
                 str_n = " " + String.valueOf(cosa) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                str_ini = " " + String.valueOf(formatter.format(xInicial)) + " ";
                 str_fxn = " " + String.valueOf(formatter.format(fx)) + " ";
                 str_fxxn = " " + String.valueOf(formatter.format(dFx)) + " ";
                 str_fxxxn = " " + String.valueOf(formatter.format(d2Fx)) + " ";
                 str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err, str_errR);
+                tablitaRM(str_n, str_ini, str_fxn, str_fxxn, str_fxxxn, str_err);
 
             }
             if (fx == 0) {
                 Mensaje(xInicial + " is a root");
             } else if (xError < tolerancia) {
                 Mensaje(x1 + " is an approximation to a root with a tolerance = " + tolerancia);
-            } else if (xAux == 0) {
+            } else if (xAux == 0 || Double.isNaN(xAux) || Double.isInfinite(xAux)) {
                 Mensaje("Method Error");
             } else {
-                Mensaje("Failure in " + iteraciones + " iterations");
+                Mensaje("Failure in " + cosa + " iterations");
             }
 
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");
         } catch (Exception e) {
-            Mensaje("Error: " + e.getMessage());
+            Mensaje("Error: Function not defined in the given interval");
         }
     }
 
@@ -264,7 +296,7 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void tablitaRM(String str_n, String str_ini, String str_fxn, String str_fxxn, String str_fxxxn, String str_err, String str_errR) {
+    public void tablitaRM(String str_n, String str_ini, String str_fxn, String str_fxxn, String str_fxxxn, String str_err) {
 
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
 
@@ -329,14 +361,6 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         labelErr.setTextColor(Color.BLACK);
         tr.addView(labelErr);
 
-        TextView labelErrR = new TextView(this);
-        labelErrR.setId(200 + count);
-        labelErrR.setTextSize(15);
-        labelErrR.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelErrR.setText(str_errR);
-        labelErrR.setTextColor(Color.BLACK);
-        tr.addView(labelErrR);
-
         // finally add this to the table row
         tl.addView(tr, new TableLayout.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
         count++;
@@ -384,18 +408,28 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
 
     public void help() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).setMessage("In presence of multiple roots, the Newton method and the Secant method can converge lineally and can fail.\n" +
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View dialogView = inflater.inflate(R.layout.alert_dialog_with_image, null);
+        TextView text1 = (TextView) dialogView.findViewById(R.id.textView1);
+        text1.setText("In presence of multiple roots, the Newton method and the Secant method can converge lineally and can fail.\n" +
                 "\n" +
                 "To get a high convergence’s speed again, we can add a factor that expresses the multiplicity of the root that is being searched by the Newton method and apply that new method to an auxiliary function that helps to detect the root of the equation f(x) = 0.\n" +
                 "\n" +
-                "Thanks to these two addictions we can get a expression to find multiple roots with critical values (maximum, minimum or inflection point):\n" +
-                "\n" +
-                "Xn+1 = Xn - {[f (Xn) * f'(Xn)] / [(f'(Xn)) ^ 2 - (f (Xn) * f '' (Xn))]} ");
+                "Thanks to these two addictions we can get a expression to find multiple roots with critical values (maximum, minimum or inflection point):");
+        ImageView image1 = (ImageView) dialogView.findViewById(R.id.dialog_imageview1);
+        image1.setImageResource(R.drawable.multiple_roots_equation);
+        builder.setView(dialogView)
+                // Add action buttons
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -416,6 +450,17 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
         polinomioRM.setText(funcionRM1);
         polinomioFxRM.setText(funcionRM2);
         polinomioFxxRM.setText(funcionRM3);
+
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
+
+        RadioButton error;
+
+        if (absoluteError) {
+            error = (RadioButton) errorType.getChildAt(0);
+        } else {
+            error = (RadioButton) errorType.getChildAt(1);
+        }
+        errorType.check(error.getId());
 
         Button calcularBsc_btn = (Button) findViewById(R.id.calculate_btn);
         calcularBsc_btn.setOnClickListener(this);

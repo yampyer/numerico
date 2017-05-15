@@ -112,7 +112,6 @@ public class OneVariableInput extends AppCompatActivity implements View.OnClickL
         startActivity(oneVariable);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -146,10 +145,7 @@ public class OneVariableInput extends AppCompatActivity implements View.OnClickL
                         grapher("AlgunasFunciones");
 
                     } else {
-                        fXTodos = fXTodos_edt.getText().toString();
-                        dfXTodos = dfXTodos_edt.getText().toString();
-                        d2fXTodos = d2fXTodos_edt.getText().toString();
-                        gXTodos = gXTodos_edt.getText().toString();
+                        getData();
                         grapher("DatosUnaVariable");
                     }
                 }

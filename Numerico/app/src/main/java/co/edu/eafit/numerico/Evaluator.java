@@ -9,14 +9,14 @@ import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
+import org.nfunk.jep.type.DoubleNumberFactory;
 
 public class Evaluator extends Activity {
 
     private JEP myParser;
     private DJep derivate;
 
-    public void preparateJep()
-    {
+    public void preparateJep() {
         myParser = new JEP();
         myParser.addStandardFunctions();
         myParser.addStandardConstants();
@@ -29,8 +29,7 @@ public class Evaluator extends Activity {
         myParser.setImplicitMul(true);
     }
 
-    public void preparateDerivate()
-    {
+    public void preparateDerivate() {
         derivate = new DJep();
         derivate.addStandardConstants();
         derivate.addStandardFunctions();
@@ -42,17 +41,20 @@ public class Evaluator extends Activity {
         derivate.addStandardDiffRules();
     }
 
-    public double evaluate(String variable, double valor, String funcion)
-    {
+    public double evaluate(String variable, double valor, String funcion) {
         preparateJep();
         myParser.parseExpression(funcion);
         myParser.addVariable(variable, valor);
+        boolean error = myParser.hasError();
+        if (error || Double.isNaN(myParser.getValue()) || Double.isInfinite(myParser.getValue())) {
+            Message("Parse error");
+            return Double.NaN;
+        }
         return myParser.getValue();
     }
 
     public double evaluateEuler(String variable1, String variable2, double valor1,
-                               double valor2, String funcion)
-    {
+                                double valor2, String funcion) {
         preparateJep();
         funcion = funcion.replaceAll("sen", "sin");
         myParser.parseExpression(funcion);
@@ -61,24 +63,22 @@ public class Evaluator extends Activity {
         return myParser.getValue();
     }
 
-    public String derivate(String funcion)
-    {
-        try{
+    public String derivate(String funcion) {
+        try {
             preparateDerivate();
             funcion = funcion.replaceAll("sen", "sin");
             Node node = derivate.parse(funcion);
-            Node diff = derivate.differentiate(node,"x");
+            Node diff = derivate.differentiate(node, "x");
             Node simp = derivate.simplify(diff);
             String deff = derivate.toString(simp);
             return deff;
-        }catch(ParseException e){
+        } catch (ParseException e) {
             Message("Wrong iteration value");
             return "";
         }
     }
 
-    public boolean checkFunc (String funcion)
-    {
+    public boolean checkFunc(String funcion) {
         preparateJep();
         myParser.parseExpression(funcion);
         myParser.addVariable("x", 1);
@@ -88,19 +88,18 @@ public class Evaluator extends Activity {
     }
 
 
-    public static double round(double numero)
-    {
-        int cifras = (int) Math.pow(10,3);
-        return Math.rint (numero * cifras) / cifras;
+    public static double round(double numero) {
+        int cifras = (int) Math.pow(10, 3);
+        return Math.rint(numero * cifras) / cifras;
     }
 
-    public void Message(String s){
+    public void Message(String s) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         dialog.setMessage(s);
         dialog.setCancelable(false);
-        dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

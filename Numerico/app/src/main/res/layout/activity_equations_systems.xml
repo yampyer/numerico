@@ -28,8 +28,11 @@
 
         <Button
             android:id="@+id/gaussian_elimination_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_marginTop="63dp"
             android:text="Gaussian Elimination"
             android:layout_alignParentTop="true"
@@ -37,10 +40,12 @@
 
         <Button
             android:id="@+id/doolittle_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_marginEnd="21dp"
-            android:layout_marginRight="22dp"
             android:text="Doolittle"
             android:layout_alignTop="@+id/gaussian_elimination_btn"
             android:layout_alignParentEnd="true"
@@ -48,8 +53,11 @@
 
         <Button
             android:id="@+id/cholesky_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_alignBottom="@+id/crout_btn"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="18dp"
@@ -57,8 +65,11 @@
 
         <Button
             android:id="@+id/crout_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_alignStart="@+id/doolittle_btn"
             android:layout_below="@+id/doolittle_btn"
             android:layout_marginTop="34dp"
@@ -66,8 +77,11 @@
 
         <Button
             android:id="@+id/iterative_methods_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_below="@+id/cholesky_btn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"

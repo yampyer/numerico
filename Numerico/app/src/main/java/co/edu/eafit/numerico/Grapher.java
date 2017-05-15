@@ -256,7 +256,9 @@ public class Grapher extends AppCompatActivity {
             for (double x = x0; x < x1; x += 0.01) {
 
                 arreglo.add(x);
-                fx = myParser.evaluate("x", x, fx_stg);
+                try {
+                    fx = myParser.evaluate("x", x, fx_stg);
+                } catch (Exception e) {}
                 arreglo.add(fx);
             }
             rePaint();
@@ -265,7 +267,9 @@ public class Grapher extends AppCompatActivity {
             for (double x = x0; x < x1; x += 0.01) {
 
                 arreglo.add(x);
-                fx = myParser.evaluate("x", x, fx_stg);
+                try {
+                    fx = myParser.evaluate("x", x, fx_stg);
+                } catch (Exception e) {}
                 arreglo.add(fx);
             }
             rePaint();
@@ -274,7 +278,9 @@ public class Grapher extends AppCompatActivity {
             for (double x = x0; x < x1; x += delta) {
 
                 arreglo.add(x);
-                fx = myParser.evaluate("x", x, fx_stg);
+                try {
+                    fx = myParser.evaluate("x", x, fx_stg);
+                } catch (Exception e) {}
                 arreglo.add(fx);
             }
             rePaint();
@@ -292,7 +298,9 @@ public class Grapher extends AppCompatActivity {
         for (double x = x0; x < x1; x += 0.01) {
 
             arreglo_gx.add(x);
-            gx = myParser.evaluate("x", x, gx_stg);
+            try {
+                gx = myParser.evaluate("x", x, gx_stg);
+            } catch (Exception e) {}
             arreglo_gx.add(gx);
         }
 
@@ -319,7 +327,9 @@ public class Grapher extends AppCompatActivity {
         for (double x = x0; x < x1; x += 0.01) {
 
             arreglo_dfx.add(x);
-            dfx = myParser.evaluate("x", x, dfx_stg);
+            try {
+                dfx = myParser.evaluate("x", x, dfx_stg);
+            } catch (Exception e) {}
             arreglo_dfx.add(dfx);
         }
 
@@ -345,7 +355,9 @@ public class Grapher extends AppCompatActivity {
         for (double x = x0; x < x1; x += 0.01) {
 
             arreglo_d2fx.add(x);
-            d2fx = myParser.evaluate("x", x, d2fx_stg);
+            try {
+                d2fx = myParser.evaluate("x", x, d2fx_stg);
+            } catch (Exception e) {}
             arreglo_d2fx.add(d2fx);
         }
 

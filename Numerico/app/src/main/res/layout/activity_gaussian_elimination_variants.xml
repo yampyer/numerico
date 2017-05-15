@@ -28,8 +28,11 @@
 
         <Button
             android:id="@+id/without_pivot_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:text="Without Pivoting"
             android:layout_above="@+id/partial_pivoting_btn"
             android:layout_alignStart="@+id/partial_pivoting_btn"
@@ -37,8 +40,11 @@
 
         <Button
             android:id="@+id/partial_pivoting_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_marginRight="22dp"
             android:text="Partial Pivoting"
             android:layout_above="@+id/total_pivoting_btn"
@@ -47,8 +53,11 @@
 
         <Button
             android:id="@+id/total_pivoting_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_marginLeft="18dp"
             android:text="Total Pivoting"
             android:layout_centerHorizontal="true"

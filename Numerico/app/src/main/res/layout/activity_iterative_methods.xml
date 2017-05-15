@@ -28,8 +28,11 @@
 
         <Button
             android:id="@+id/jacobi_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:text="Jacobi"
             android:layout_below="@+id/textView"
             android:layout_alignStart="@+id/gauss_seidel_btn"
@@ -37,8 +40,11 @@
 
         <Button
             android:id="@+id/gauss_seidel_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_marginRight="22dp"
             android:text="Gauss Seidel"
             android:layout_marginBottom="89dp"

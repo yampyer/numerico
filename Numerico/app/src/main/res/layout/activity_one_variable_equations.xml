@@ -29,8 +29,11 @@
 
         <Button
             android:id="@+id/false_position_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_alignLeft="@+id/incremental_search_btn"
             android:layout_below="@+id/incremental_search_btn"
             android:layout_marginTop="10dp"
@@ -38,8 +41,11 @@
 
         <Button
             android:id="@+id/bisection_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_above="@+id/false_position_btn"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/incremental_search_btn"
@@ -49,8 +55,11 @@
 
         <Button
             android:id="@+id/newton_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/false_position_btn"
             android:layout_marginLeft="18dp"
@@ -59,24 +68,33 @@
 
         <Button
             android:id="@+id/fixed_point_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_above="@+id/newton_btn"
             android:layout_alignLeft="@+id/bisection_btn"
             android:text="Fixed Point" />
 
         <Button
             android:id="@+id/secant_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_above="@+id/multiple_roots_btn"
             android:layout_alignStart="@+id/fixed_point_btn"
             android:text="Secant's Method" />
 
         <Button
             android:id="@+id/incremental_search_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_alignLeft="@+id/newton_btn"
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp"
@@ -84,8 +102,11 @@
 
         <Button
             android:id="@+id/multiple_roots_btn"
-            android:layout_width="120dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/button_shape"
             android:layout_below="@+id/newton_btn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"

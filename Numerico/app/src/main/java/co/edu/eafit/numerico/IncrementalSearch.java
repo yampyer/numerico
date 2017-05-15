@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -108,6 +109,10 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
                     val_iniIt = valorIteraciones;
                     val_iniD = valorDelta;
                     funcionbsq2 = funcionbsq;
+                    if (OneVariableInput.fXTodos.matches("")) {
+                        OneVariableInput.fXTodos_edt.setText(funcionbsq2);
+                        OneVariableInput.fXTodos = funcionbsq2;
+                    }
                     comprobarValor();
                 }
                 break;
@@ -137,8 +142,7 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
 
     void metodoBusquedaIncremental() {
         funcionbsq = polinomioBsq.getText().toString();
-        NumberFormat formatter = new DecimalFormat("0.##E0");
-        NumberFormat formatter2 = new DecimalFormat("0.#####E0");
+        NumberFormat formatter = new DecimalFormat("#.#E0");
 
         try {
             Evaluator myParser = new Evaluator();
@@ -159,9 +163,9 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
                 estoyTabla = true;
                 count = 0;
 
-                String str_n = String.valueOf(" n ");
-                String str_ini = String.valueOf(" X0 ");
-                String str_fx = String.valueOf(" f(X0) ");
+                String str_n = String.valueOf(" n  ");
+                String str_ini = String.valueOf("  X0  ");
+                String str_fx = String.valueOf("  f(X0) ");
 
                 tablitaBsq(str_n, str_ini, str_fx);
                 count++;
@@ -180,7 +184,7 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
 
                     cosa = i + 1;
                     str_n = " " + String.valueOf(cosa) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                    str_ini = " " + String.valueOf(xInicial) + " ";
                     str_fx = " " + String.valueOf(formatter.format(fX0)) + " ";
 
                     tablitaBsq(str_n, str_ini, str_fx);
@@ -195,7 +199,7 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
                     fX0 = fX1;
 
                     str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                    str_ini = " " + String.valueOf(xInicial) + " ";
                     str_fx = " " + String.valueOf(formatter.format(fX0)) + " ";
 
                     tablitaBsq(str_n, str_ini, str_fx);
@@ -209,19 +213,19 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
                     fX0 = fX1;
 
                     str_n = " " + String.valueOf(cosa + 1) + " ";
-                    str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                    str_ini = " " + String.valueOf(formatter.format(xInicial)) + " ";
                     str_fx = " " + String.valueOf(formatter.format(fX0)) + " ";
 
                     tablitaBsq(str_n, str_ini, str_fx);
 
                 } else {
-                    Mensaje("Failure in " + iteraciones + " iterations");
+                    Mensaje("Failure in " + cosa + " iterations");
                 }
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");
         } catch (Exception e) {
-            Mensaje("Error: " + e.getMessage());
+            Mensaje("Error: Function not defined in the given interval");
         }
     }
 
@@ -339,7 +343,8 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
             }
         }).setMessage("It is used to search for those sub-ranges in which the existence of a root is guaranteed.\n" +
                 "\n" +
-                "An equation is given (f (x) = 0), an interval ([a, b]) and an increase (delta Δ).\n" +
+                "An equation is given (f (x) = 0), an interval ([a, b]) and an increase\n" +
+                "(delta Δ).\n" +
                 "\n" +
                 "It consists of starting from one end of the interval (a) and adding the increment. The function is evaluated for where there is a change of sign. If this occurs, in that interval there is at least one root.\n" +
                 "\n" +

@@ -129,9 +129,9 @@
 
         <Button
             android:id="@+id/calculate_btn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="Calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/calculate_btn"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="21dp" />
@@ -145,6 +145,36 @@
             android:ems="15"
             android:inputType="number"
             android:maxLines="1" />
+
+        <RadioGroup
+            android:id="@+id/errorSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/TextView02"
+            android:layout_alignStart="@+id/TextView02"
+            android:layout_alignEnd="@+id/tolerance_edit"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <RadioButton
+                android:id="@+id/absoluteErrorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Absolute Error"
+                android:layout_weight="0.5" />
+
+            <RadioButton
+                android:id="@+id/relativeErrorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="Relative Error"
+                android:layout_weight="0.5"/>
+
+        </RadioGroup>
 
     </RelativeLayout>
 

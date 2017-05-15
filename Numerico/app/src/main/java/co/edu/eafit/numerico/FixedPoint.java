@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
     EditText stringIteraciones;
     EditText stringTolerancia;
     EditText polinomioPF;
+    RadioGroup errorType;
 
     String valorInicial;
     String funcionG;
@@ -44,6 +47,8 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
     static String val_funcionG;
 
     boolean estoyTabla = false;
+    boolean absoluteError = true;
+    boolean relativeError = false;
 
     double xInicial;
     double tolerancia;
@@ -74,6 +79,8 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             polinomioG.setText(OneVariableInput.gXTodos);
         }
 
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
+
         Button calcularPF_btn = (Button) findViewById(R.id.calculate_btn);
         calcularPF_btn.setOnClickListener(this);
 
@@ -95,6 +102,13 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
         valorTolerancia = stringTolerancia.getText().toString();
         funcionPF = polinomioPF.getText().toString();
         funcionG = polinomioG.getText().toString();
+        if (errorType.getCheckedRadioButtonId() == R.id.absoluteErrorButton) {
+            absoluteError = true;
+            relativeError = false;
+        } else {
+            absoluteError = false;
+            relativeError = true;
+        }
     }
 
     @Override
@@ -121,6 +135,15 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
                     val_iniT = valorTolerancia;
                     val_funcionPF = funcionPF;
                     val_funcionG = funcionG;
+                    if (OneVariableInput.fXTodos.matches("")) {
+                        OneVariableInput.fXTodos_edt.setText(val_funcionPF);
+                        OneVariableInput.fXTodos = val_funcionPF;
+
+                    }
+                    if (OneVariableInput.gXTodos.matches("")) {
+                        OneVariableInput.gXTodos_edt.setText(val_funcionG);
+                        OneVariableInput.gXTodos = val_funcionG;
+                    }
                     comprobarValor();
                 }
                 break;
@@ -151,8 +174,7 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
     void metodoPuntoFijo() {
         funcionPF = polinomioPF.getText().toString();
         funcionG = polinomioG.getText().toString();
-        NumberFormat formatter = new DecimalFormat("0.###E0");
-        NumberFormat formatter2 = new DecimalFormat("0.#####E0");
+        NumberFormat formatter = new DecimalFormat("#.#E0");
 
         try {
             Evaluator myParser = new Evaluator();
@@ -172,19 +194,21 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             String str_n = String.valueOf(" n   ");
             String str_ini = String.valueOf(" Xn ");
             String str_fxn = String.valueOf(" f(Xn) ");
-            String str_err = String.valueOf(" Absolute Error ");
-            String str_errR = String.valueOf(" Relative Error ");
-
-            tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
+            String str_err;
+            if (absoluteError) {
+                str_err = String.valueOf(" Absolute Error ");
+            } else {
+                str_err = String.valueOf(" Relative Error ");
+            }
+            tablitaPF(str_n, str_ini, str_fxn, str_err);
             count++;
 
             str_n = String.valueOf(0);
             str_ini = String.valueOf(xInicial);
-            str_fxn = String.valueOf(fX0);
-            str_err = String.valueOf("Doesn't exist");
-            str_errR = String.valueOf("Doesn't exist");
+            str_fxn = " " + String.valueOf(formatter.format(fX0)) + " ";
+            str_err = String.valueOf("-------");
 
-            tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
+            tablitaPF(str_n, str_ini, str_fxn, str_err);
 
 
             for (int i = 1; (fX0 != 0) && (xError > tolerancia) && (i < iteraciones); i++) {
@@ -192,16 +216,21 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
                 fX0 = myParser.evaluate("x", x1, funcionPF);
                 xError = Math.abs(x1 - xInicial);
                 xErrorR = Math.abs((x1 - xInicial) / x1);
+                if (absoluteError) {
+                    xError = Math.abs(x1 - xInicial);
+                } else {
+                    xError = Math.abs((x1 - xInicial) / x1);
+                }
+                xErrorR = Math.abs((x1 - xInicial) / x1);
                 xInicial = x1;
 
                 cosa = i;
                 str_n = " " + String.valueOf(cosa) + " ";
-                str_ini = " " + String.valueOf(formatter2.format(xInicial)) + " ";
+                str_ini = " " + String.valueOf(xInicial) + " ";
                 str_fxn = " " + String.valueOf(formatter.format(fX0)) + " ";
                 str_err = " " + String.valueOf(formatter.format(xError)) + " ";
-                str_errR = " " + String.valueOf(formatter.format(xErrorR)) + " ";
 
-                tablitaPF(str_n, str_ini, str_fxn, str_err, str_errR);
+                tablitaPF(str_n, str_ini, str_fxn, str_err);
             }
 
             if (fX0 == 0) {
@@ -209,17 +238,15 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             } else if (xError < tolerancia || xErrorR < tolerancia) {
                 Mensaje(xInicial + " is an approximation to a root with a tolerance = " + tolerancia + ".");
             } else {
-                Mensaje("Failure in " + iteraciones + " iterations");
+                Mensaje("Failure in " + cosa + " iterations");
             }
         } catch (NumberFormatException e) {
             Mensaje("Enter valid data");
 
         } catch (Exception e) {
-            Mensaje("Error: " + e.getMessage());
-
+            Mensaje("Error: Function not defined in the given interval");
         }
     }
-
 
     public void Mensaje(String s) {
 
@@ -236,8 +263,7 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
         dialog.show();
     }
 
-
-    public void tablitaPF(String str_n, String str_ini, String str_fxn, String str_err, String str_errR) {
+    public void tablitaPF(String str_n, String str_ini, String str_fxn, String str_err) {
 
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
 
@@ -286,14 +312,6 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
         labelErr.setText(str_err);
         labelErr.setTextColor(Color.BLACK);
         tr.addView(labelErr);
-
-        TextView labelErrR = new TextView(this);
-        labelErrR.setId(200 + count);
-        labelErrR.setTextSize(15);
-        labelErrR.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        labelErrR.setText(str_errR);
-        labelErrR.setTextColor(Color.BLACK);
-        tr.addView(labelErrR);
 
         // finally add this to the table row
         tl.addView(tr, new TableLayout.LayoutParams(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
@@ -346,10 +364,14 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        }).setMessage("This method is part of the equation f (x) = 0, to generate x = g (x), to which the method seeks solution. To determine g (X), which is made clear some (any) x of  original f (x) . To find the solution to the equation x = g (x), is looking for a value of x in g to replace the result is the same x, ie x we do not look for a change to the function g.\n" +
-                "The graphical relationship that exists between the equations f (x) = 0 and x = g (x) \n" +
+        }).setMessage("This method is part of the equation f (x) = 0, to generate x = g (x), to which the method seeks solution. To determine g (X), which is made clear some (any) x of  original f (x).\n" +
+                "To find the solution to the equation\n" +
+                "x = g (x), is looking for a value of x in g to replace the result is the same x, ie x we do not look for a change to the function g.\n" +
+                "The graphical relationship that exists between the equations f (x) = 0 and\n" +
+                "x = g (x) \n" +
                 "\n" +
-                "We can see that from a geometrical point of view, the problem changes. To solve the equation f (x) = 0, we seek a value for x in the function y = f (x) cut the x axis, while to solve the equation x = g (x) the intersection is sought line y = x and the curve y = g (x).");
+                "We can see that from a geometrical point of view, the problem changes. To solve the equation f (x) = 0,\n" +
+                "we seek a value for x in the function y = f (x) cut the x axis, while to solve the equation x = g (x) the intersection is sought line y = x and the curve y = g (x).");
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -368,6 +390,17 @@ public class FixedPoint extends AppCompatActivity implements View.OnClickListene
         stringTolerancia.setText(val_iniT);
         polinomioPF.setText(val_funcionPF);
         polinomioG.setText(val_funcionG);
+
+        errorType = (RadioGroup) findViewById(R.id.errorSelection);
+
+        RadioButton error;
+
+        if (absoluteError) {
+            error = (RadioButton) errorType.getChildAt(0);
+        } else {
+            error = (RadioButton) errorType.getChildAt(1);
+        }
+        errorType.check(error.getId());
 
         Button calcularPF_btn = (Button) findViewById(R.id.calculate_btn);
         calcularPF_btn.setOnClickListener(this);
