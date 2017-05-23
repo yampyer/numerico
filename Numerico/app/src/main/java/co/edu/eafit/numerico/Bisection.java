@@ -23,8 +23,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.Object;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -36,8 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import utils.SessionManager;
-
-import static java.lang.System.out;
 
 public class Bisection extends AppCompatActivity implements View.OnClickListener {
 
@@ -188,25 +184,21 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     /**
      * Represents an asynchronous logger task used to save operations
      */
-    private void logHistory(String function, Double[] params, String userId) {
+    private void logHistory(final String function, final String method, final String userId) {
 
-        Method methodJson = new Method(function, params, userId);
-        Call<Method> call = serverAPI.newMethod(tokenPlayer, methodJson);
+        Method methodJson = new Method(function, method, userId);
+        Call<Method> call = serverAPI.newMethod(methodJson);
         call.enqueue(new Callback<Method>() {
             @Override
             public void onResponse(Call<Method> call, Response<Method> response) {
-                progressDialog.dismiss();
 
-                if (response.isSuccessful()) {
-
-                } else {
-
-                }
+                System.out.println(response.code());
+                System.out.println(response.body());
+                System.out.println(response.message());
             }
 
             @Override
             public void onFailure(Call<Method> call, Throwable t) {
-                progressDialog.dismiss();
             }
         });
     }
@@ -221,9 +213,6 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
             Mensaje("Iterations has to be major than zero");
             stringIteraciones.setText(" ");
         } else {
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Calculating...");
-            progressDialog.show();
             metodoBiseccion();
         }
     }
@@ -231,12 +220,7 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     void metodoBiseccion() {
 
         funcionbisc = polinomioBisc.getText().toString();
-        Double[] params = new Double [4];
-        params[0] = xInicial;
-        params[1] = xSiguiente;
-        params[2] = Double.parseDouble(String.valueOf(iteraciones));
-        params[3] = tolerancia;
-        logHistory(funcionbisc, params, idUser);
+        logHistory(funcionbisc, "Bisection", idUser);
         NumberFormat formatter = new DecimalFormat("#.#E0");
         try {
             Evaluator myParser = new Evaluator();

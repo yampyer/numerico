@@ -2,13 +2,13 @@ package models;
 
 public class Method {
     private String function;
-    private Double [] params;
+    private String method;
     private String userId;
     private String id;
 
-    public Method(String function, Double [] params, String userId) {
+    public Method(String function, String method, String userId) {
         this.function = function;
-        this.params = params;
+        this.method = method;
         this.userId = userId;
     }
 
@@ -69,18 +69,18 @@ public class Method {
     /**
      *
      * @return
-     * The params
+     * The method
      */
-    public Double [] getParams() {
-        return params;
+    public String getMethod() {
+        return method;
     }
 
     /**
      *
-     * @param params
-     * The params
+     * @param method
+     * The method
      */
-    public void setParams(Double [] params) {
-        this.params = params;
+    public void setMethod(String method) {
+        this.method = method;
     }
 }

@@ -20,7 +20,6 @@ public interface NumericoAPI {
 
     @GET("Usuarios/{id}")
     Call<User> getUser(
-            @Header("Authorization") String token,
             @Path("id") String id,
             @Query("filter") String includeLiteral
     );
@@ -30,25 +29,20 @@ public interface NumericoAPI {
 
     @GET("Usuarios")
     Call<List<User>> getAllUsers(
-            @Header("Authorization") String token,
             @Query("filter") String includeLiteral
     );
 
     @PUT("Usuarios/{id}")
     Call<User> updateUser(
-            @Header("Authorization") String token,
             @Path("id") String id,
             @Body User user
     );
 
     @POST("Metodos")
-    Call<Method> newMethod(
-            @Header("Authorization") String token,
-            @Body Method method
-    );
+    Call<Method> newMethod(@Body Method method);
 
     @GET("Metodos")
     Call<List<Method>> getMethods(
-            @Header("Authorization") String token
+            @Query("filter") String includeLiteral
     );
 }
