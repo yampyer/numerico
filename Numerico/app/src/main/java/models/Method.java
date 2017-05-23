@@ -3,31 +3,31 @@ package models;
 public class Method {
     private String function;
     private Double [] params;
-    private User user;
+    private String userId;
     private String id;
 
-    public Method(String function, Double [] params, User user) {
+    public Method(String function, Double [] params, String userId) {
         this.function = function;
         this.params = params;
-        this.user = user;
+        this.userId = userId;
     }
 
     /**
      *
      * @return
-     * The user
+     * The userId
      */
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
     /**
      *
-     * @param user
-     * The user
+     * @param userId
+     * The userId
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     /**

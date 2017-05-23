@@ -2,6 +2,7 @@ package co.edu.eafit.numerico;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,8 +23,21 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.Object;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
+
+import API.NumericoAPI;
+import API.ServerAPI;
+import models.Method;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import utils.SessionManager;
+
+import static java.lang.System.out;
 
 public class Bisection extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,6 +79,12 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     int cosa;
     int count = 0;
 
+    private SessionManager session;
+    private ProgressDialog progressDialog;
+    private NumericoAPI serverAPI;
+    private String tokenPlayer;
+    private String idUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +98,21 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
 
         if (!OneVariableInput.fXTodos.matches("")) {
             polinomioBisc.setText(OneVariableInput.fXTodos);
+        }
+
+        serverAPI = ServerAPI.getInstance();
+        session = SessionManager.getInstance(getApplicationContext());
+        progressDialog = new ProgressDialog(Bisection.this);
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            HashMap<String, String> user = session.getUserDetails();
+
+            //token
+            tokenPlayer = user.get(SessionManager.KEY_TOKEN);
+
+            //id
+            idUser = user.get(SessionManager.KEY_ID);
         }
 
         errorType = (RadioGroup) findViewById(R.id.errorSelection);
@@ -150,6 +185,32 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Represents an asynchronous logger task used to save operations
+     */
+    private void logHistory(String function, Double[] params, String userId) {
+
+        Method methodJson = new Method(function, params, userId);
+        Call<Method> call = serverAPI.newMethod(tokenPlayer, methodJson);
+        call.enqueue(new Callback<Method>() {
+            @Override
+            public void onResponse(Call<Method> call, Response<Method> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Method> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
     void comprobarValor() {
         xInicial = Double.parseDouble(valorInicial);
         xSiguiente = Double.parseDouble(valorSiguiente);
@@ -160,12 +221,22 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
             Mensaje("Iterations has to be major than zero");
             stringIteraciones.setText(" ");
         } else {
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Calculating...");
+            progressDialog.show();
             metodoBiseccion();
         }
     }
 
     void metodoBiseccion() {
+
         funcionbisc = polinomioBisc.getText().toString();
+        Double[] params = new Double [4];
+        params[0] = xInicial;
+        params[1] = xSiguiente;
+        params[2] = Double.parseDouble(String.valueOf(iteraciones));
+        params[3] = tolerancia;
+        logHistory(funcionbisc, params, idUser);
         NumberFormat formatter = new DecimalFormat("#.#E0");
         try {
             Evaluator myParser = new Evaluator();

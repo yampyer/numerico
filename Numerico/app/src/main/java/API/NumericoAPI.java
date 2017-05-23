@@ -42,7 +42,7 @@ public interface NumericoAPI {
     );
 
     @POST("Metodos")
-    Call<Method> method(
+    Call<Method> newMethod(
             @Header("Authorization") String token,
             @Body Method method
     );
