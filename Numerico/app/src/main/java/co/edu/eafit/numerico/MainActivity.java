@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(equationSystems);
                 break;
             case R.id.interpolation_btn:
-                Intent interpolation = new Intent(this, OneVariableInput.class);
+                Intent interpolation = new Intent(this, Interpolation.class);
                 startActivity(interpolation);
                 break;
         }

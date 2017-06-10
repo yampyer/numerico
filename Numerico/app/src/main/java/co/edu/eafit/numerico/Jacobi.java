@@ -156,7 +156,7 @@ public class Jacobi extends AppCompatActivity {
         }
 
         if (cont == iter) {
-            Mensaje("Solution not found in " + iter + " iterations");
+            Message("Solution not found in " + iter + " iterations");
         }
     }
 
@@ -222,7 +222,7 @@ public class Jacobi extends AppCompatActivity {
         return true;
     }
 
-    public void Mensaje(String s) {
+    public void Message(String s) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
