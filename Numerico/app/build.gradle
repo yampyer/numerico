@@ -27,7 +27,6 @@ dependencies {
   compile files('libs/exp4j-0.3.11.jar')
   compile files('libs/ext-1.1.1.jar')
   compile files('libs/jep-2.4.1.jar')
-  compile group: 'org.ejml', name: 'all', version: '0.28'
   compile 'com.android.support:appcompat-v7:25.3.0'
   compile 'com.android.support.constraint:constraint-layout:1.0.2'
   compile 'com.android.support:design:25.3.0'
