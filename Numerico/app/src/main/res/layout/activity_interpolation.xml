@@ -24,7 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="50dp"
-    android:background="#ffFFFF">
+    android:background="@drawable/background">
 
     <ScrollView
       android:layout_width="fill_parent"

@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="co.edu.eafit.numerico.MainActivity"
-    tools:showIn="@layout/activity_main">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/background"
+  app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  tools:context="co.edu.eafit.numerico.MainActivity"
+  tools:showIn="@layout/activity_main">
 
-    <Button
-        android:id="@+id/oneVariableEquations_btn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:background="@drawable/one_variable_equations_btn"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="80dp"
-        android:layout_marginTop="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/interpolation_btn" />
+  <Button
+    android:id="@+id/oneVariableEquations_btn"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_alignParentTop="true"
+    android:layout_alignStart="@+id/interpolation_btn"
+    android:layout_marginTop="150dp"
+    android:background="@drawable/one_variable_equations_btn"
+    tools:layout_editor_absoluteX="42dp"
+    tools:layout_editor_absoluteY="80dp" />
 
-    <Button
-        android:id="@+id/equationSystems_btn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:background="@drawable/equation_systems_btn"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="184dp"
-        android:layout_below="@+id/oneVariableEquations_btn"
-        android:layout_alignStart="@+id/oneVariableEquations_btn"
-        android:layout_marginTop="30dp" />
+  <Button
+    android:id="@+id/equationSystems_btn"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_alignStart="@+id/oneVariableEquations_btn"
+    android:layout_below="@+id/oneVariableEquations_btn"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/equation_systems_btn"
+    tools:layout_editor_absoluteX="42dp"
+    tools:layout_editor_absoluteY="184dp" />
 
-    <Button
-        android:id="@+id/interpolation_btn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/equationSystems_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/interpolation_btn"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="294dp" />
+  <Button
+    android:id="@+id/interpolation_btn"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_below="@+id/equationSystems_btn"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/interpolation_btn"
+    tools:layout_editor_absoluteX="42dp"
+    tools:layout_editor_absoluteY="294dp" />
 
 </RelativeLayout>

@@ -1,197 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="co.edu.eafit.numerico.MultipleRoots">
+
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+  </android.support.design.widget.AppBarLayout>
+
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="co.edu.eafit.numerico.MultipleRoots">
+    android:background="@drawable/background"
+    android:padding="30dp">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+    <TextView
+      android:id="@+id/TextView03"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/polibsq_txv"
+      android:layout_below="@+id/polibsq_txv"
+      android:layout_marginTop="25dp"
+      android:text="F'(x):"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <TextView
+      android:id="@+id/polibsq_txv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginLeft="22dp"
+      android:layout_marginTop="60dp"
+      android:text="Function:"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <EditText
+      android:id="@+id/function_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/polibsq_txv"
+      android:layout_alignParentEnd="true"
+      android:ems="15"
+      android:inputType="text">
+
+      <requestFocus />
+    </EditText>
+
+    <EditText
+      android:id="@+id/fx_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/TextView04"
+      android:layout_alignParentEnd="true"
+      android:ems="15"
+      android:inputType="text" />
+
+    <TextView
+      android:id="@+id/TextView04"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/TextView03"
+      android:layout_below="@+id/TextView03"
+      android:layout_marginTop="25dp"
+      android:text="F&apos;&apos;(x):"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <EditText
+      android:id="@+id/x0_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/TextView01"
+      android:layout_alignRight="@+id/fxx_edit"
+      android:ems="15"
+      android:inputType="numberDecimal|numberSigned"
+      android:maxLines="1" />
+
+    <TextView
+      android:id="@+id/textView1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/TextView04"
+      android:layout_below="@+id/fxx_edit"
+      android:layout_marginTop="25dp"
+      android:text="Initial Value:"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <EditText
+      android:id="@+id/tolerance_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/TextView02"
+      android:layout_alignLeft="@+id/iterations_edit"
+      android:ems="15"
+      android:inputType="numberDecimal"
+      android:maxLines="1" />
+
+    <TextView
+      android:id="@+id/TextView01"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/textView1"
+      android:layout_below="@+id/textView1"
+      android:layout_marginTop="25dp"
+      android:text="Iterations:"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <EditText
+      android:id="@+id/iterations_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/TextView01"
+      android:layout_alignLeft="@+id/x0_edit"
+      android:ems="15"
+      android:inputType="number"
+      android:maxLines="1" />
+
+    <Button
+      android:id="@+id/calculate_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="60dp"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:background="@drawable/calculate_btn" />
+
+    <EditText
+      android:id="@+id/fxx_edit"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/TextView04"
+      android:layout_alignParentEnd="true"
+      android:ems="15"
+      android:inputType="text" />
+
+    <TextView
+      android:id="@+id/TextView02"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/TextView01"
+      android:layout_below="@+id/TextView01"
+      android:layout_marginTop="25dp"
+      android:text="Tolerance:"
+      android:textColor="#000000"
+      android:textSize="25dp" />
+
+    <RadioGroup
+      android:id="@+id/errorSelection"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignEnd="@+id/tolerance_edit"
+      android:layout_alignStart="@+id/TextView02"
+      android:layout_below="@+id/TextView02"
+      android:layout_marginTop="20dp"
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:weightSum="1">
+
+      <RadioButton
+        android:id="@+id/absoluteErrorButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_weight="0.5"
+        android:checked="true"
+        android:text="Absolute Error" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+      <RadioButton
+        android:id="@+id/relativeErrorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:checked="false"
+        android:text="Relative Error" />
 
-    </android.support.design.widget.AppBarLayout>
+    </RadioGroup>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:padding="30dp" >
-
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/polibsq_txv"
-            android:layout_below="@+id/polibsq_txv"
-            android:layout_marginTop="25dp"
-            android:text="F'(x):"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/polibsq_txv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="60dp"
-            android:text="Function:"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/function_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/polibsq_txv"
-            android:layout_alignParentEnd="true"
-            android:inputType="text"
-            android:ems="15">
-
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/fx_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/TextView04"
-            android:layout_alignParentEnd="true"
-            android:inputType="text"
-            android:ems="15" />
-
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView03"
-            android:layout_below="@+id/TextView03"
-            android:layout_marginTop="25dp"
-            android:text="F&apos;&apos;(x):"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/x0_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/TextView01"
-            android:layout_alignRight="@+id/fxx_edit"
-            android:ems="15"
-            android:inputType="numberDecimal|numberSigned"
-            android:maxLines="1" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView04"
-            android:layout_below="@+id/fxx_edit"
-            android:layout_marginTop="25dp"
-            android:text="Initial Value:"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/tolerance_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TextView02"
-            android:layout_alignLeft="@+id/iterations_edit"
-            android:ems="15"
-            android:inputType="numberDecimal"
-            android:maxLines="1" />
-
-        <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
-            android:layout_marginTop="25dp"
-            android:text="Iterations:"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/iterations_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TextView01"
-            android:layout_alignLeft="@+id/x0_edit"
-            android:ems="15"
-            android:inputType="number"
-            android:maxLines="1" />
-
-        <Button
-            android:id="@+id/calculate_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/calculate_btn" />
-
-        <EditText
-            android:id="@+id/fxx_edit"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TextView04"
-            android:layout_alignParentEnd="true"
-            android:inputType="text"
-            android:ems="15" />
-
-        <TextView
-            android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView01"
-            android:layout_below="@+id/TextView01"
-            android:layout_marginTop="25dp"
-            android:text="Tolerance:"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <RadioGroup
-            android:id="@+id/errorSelection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/TextView02"
-            android:layout_alignStart="@+id/TextView02"
-            android:layout_alignEnd="@+id/tolerance_edit"
-            android:gravity="center"
-            android:weightSum="1">
-
-            <RadioButton
-                android:id="@+id/absoluteErrorButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Absolute Error"
-                android:layout_weight="0.5" />
-
-            <RadioButton
-                android:id="@+id/relativeErrorButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="Relative Error"
-                android:layout_weight="0.5"/>
-
-        </RadioGroup>
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
