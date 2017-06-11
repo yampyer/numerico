@@ -2,6 +2,7 @@ package co.edu.eafit.numerico;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,15 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
+
+import API.NumericoAPI;
+import API.ServerAPI;
+import models.Method;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import utils.SessionManager;
 
 public class Bisection extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,6 +75,12 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     int cosa;
     int count = 0;
 
+    private SessionManager session;
+    private ProgressDialog progressDialog;
+    private NumericoAPI serverAPI;
+    private String tokenPlayer;
+    private String idUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +94,21 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
 
         if (!OneVariableInput.fXTodos.matches("")) {
             polinomioBisc.setText(OneVariableInput.fXTodos);
+        }
+
+        serverAPI = ServerAPI.getInstance();
+        session = SessionManager.getInstance(getApplicationContext());
+        progressDialog = new ProgressDialog(Bisection.this);
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            HashMap<String, String> user = session.getUserDetails();
+
+            //token
+            tokenPlayer = user.get(SessionManager.KEY_TOKEN);
+
+            //id
+            idUser = user.get(SessionManager.KEY_ID);
         }
 
         errorType = (RadioGroup) findViewById(R.id.errorSelection);
@@ -150,6 +181,28 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Represents an asynchronous logger task used to save operations
+     */
+    private void logHistory(final String function, final String method, final String userId) {
+
+        Method methodJson = new Method(function, method, userId);
+        Call<Method> call = serverAPI.newMethod(methodJson);
+        call.enqueue(new Callback<Method>() {
+            @Override
+            public void onResponse(Call<Method> call, Response<Method> response) {
+
+                System.out.println(response.code());
+                System.out.println(response.body());
+                System.out.println(response.message());
+            }
+
+            @Override
+            public void onFailure(Call<Method> call, Throwable t) {
+            }
+        });
+    }
+
     void comprobarValor() {
         xInicial = Double.parseDouble(valorInicial);
         xSiguiente = Double.parseDouble(valorSiguiente);
@@ -165,7 +218,9 @@ public class Bisection extends AppCompatActivity implements View.OnClickListener
     }
 
     void metodoBiseccion() {
+
         funcionbisc = polinomioBisc.getText().toString();
+        logHistory(funcionbisc, "Bisection", idUser);
         NumberFormat formatter = new DecimalFormat("#.#E0");
         try {
             Evaluator myParser = new Evaluator();
