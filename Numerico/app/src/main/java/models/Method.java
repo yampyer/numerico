@@ -1,86 +1,118 @@
 package models;
 
+import java.util.Date;
+
 public class Method {
-    private String function;
-    private String method;
-    private String userId;
-    private String id;
 
-    public Method(String function, String method, String userId) {
-        this.function = function;
-        this.method = method;
-        this.userId = userId;
-    }
+  private String thirdFunction;
+  private String secondFunction;
+  private String function;
+  private String method;
+  private String userId;
+  private String id;
+  private String date;
 
-    /**
-     *
-     * @return
-     * The userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+  public Method(String function, String method, String userId) {
+    this.function = function;
+    this.method = method;
+    this.userId = userId;
+    this.date = new Date().toString();
+  }
 
-    /**
-     *
-     * @param userId
-     * The userId
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+  public Method(String function, String secondFunction, String method, String userId) {
+    this.function = function;
+    this.secondFunction = secondFunction;
+    this.method = method;
+    this.userId = userId;
+    this.date = new Date().toString();
+  }
 
-    /**
-     *
-     * @return
-     * The function
-     */
-    public String getFunction() {
-        return function;
-    }
+  public Method(String function, String secondFunction, String thirdFunction, String method, String userId) {
+    this.function = function;
+    this.secondFunction = secondFunction;
+    this.thirdFunction = thirdFunction;
+    this.method = method;
+    this.userId = userId;
+    this.date = new Date().toString();
+  }
 
-    /**
-     *
-     * @param function
-     * The function
-     */
-    public void setFunction(String function) {
-        this.function = function;
-    }
+  /**
+   * @return The userId
+   */
+  public String getUserId() {
+    return userId;
+  }
 
-    /**
-     *
-     * @return
-     * The id
-     */
-    public String getId() {
-        return id;
-    }
+  /**
+   * @param userId The userId
+   */
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
-    /**
-     *
-     * @param id
-     * The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+  /**
+   * @return The function
+   */
+  public String getFunction() {
+    return function;
+  }
 
-    /**
-     *
-     * @return
-     * The method
-     */
-    public String getMethod() {
-        return method;
-    }
+  /**
+   * @param function The function
+   */
+  public void setFunction(String function) {
+    this.function = function;
+  }
 
-    /**
-     *
-     * @param method
-     * The method
-     */
-    public void setMethod(String method) {
-        this.method = method;
-    }
+  /**
+   * @return The id
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * @param id The id
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * @return The method
+   */
+  public String getMethod() {
+    return method;
+  }
+
+  /**
+   * @param method The method
+   */
+  public void setMethod(String method) {
+    this.method = method;
+  }
+
+  public String getDate() {
+    return date;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
+  }
+
+  public String getThirdFunction() {
+    return thirdFunction;
+  }
+
+  public void setThirdFunction(String thirdFunction) {
+    this.thirdFunction = thirdFunction;
+  }
+
+  public String getSecondFunction() {
+    return secondFunction;
+  }
+
+  public void setSecondFunction(String secondFunction) {
+    this.secondFunction = secondFunction;
+  }
 }
