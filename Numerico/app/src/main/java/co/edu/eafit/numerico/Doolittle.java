@@ -55,11 +55,11 @@ public class Doolittle extends AppCompatActivity {
         for (int j = 0; j < tamano; j++) {
             if (j == 0) {
                 list.add(s);
-                adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
                 tabla_grid.setAdapter(adaptador);
             } else {
                 list.add(" ");
-                adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
                 tabla_grid.setAdapter(adaptador);
             }
         }
@@ -71,11 +71,11 @@ public class Doolittle extends AppCompatActivity {
         for (int j = 0; j < matrizAB[0].length; j++) {
             if (j == 0) {
                 list.add(etapa);
-                adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
                 tabla_grid.setAdapter(adaptador);
             } else {
                 list.add(" ");
-                adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
                 tabla_grid.setAdapter(adaptador);
             }
         }
@@ -83,7 +83,7 @@ public class Doolittle extends AppCompatActivity {
         // Marking columns
         for (int j = 0; j < matrizAB[0].length; j++) {
             list.add("x" + j);
-            adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+            adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
             tabla_grid.setAdapter(adaptador);
         }
 
@@ -92,7 +92,7 @@ public class Doolittle extends AppCompatActivity {
 
             for (int j = 0; j < matrizAB[i].length; j++) {
                 list.add(String.valueOf(matrizAB[i][j]));
-                adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
                 tabla_grid.setNumColumns(tamano);
                 tabla_grid.setAdapter(adaptador);
             }

@@ -56,11 +56,11 @@ public class ScaledPivoting extends AppCompatActivity {
     for (int j = 0; j < matrizAB[0].length; j++) {
       if (j == 0) {
         list.add(etapa);
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
         tabla_grid.setAdapter(adaptador);
       } else {
         list.add(" ");
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
         tabla_grid.setAdapter(adaptador);
       }
     }
@@ -68,11 +68,11 @@ public class ScaledPivoting extends AppCompatActivity {
     for (int j = 0; j < matrizAB[0].length; j++) {
       if (j == matrizAB[0].length - 1) {
         list.add("b");
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
         tabla_grid.setAdapter(adaptador);
       } else {
         list.add("x" + j);
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
         tabla_grid.setAdapter(adaptador);
       }
     }
@@ -80,7 +80,7 @@ public class ScaledPivoting extends AppCompatActivity {
 
       for (int j = 0; j < matrizAB[i].length; j++) {
         list.add(String.valueOf(matrizAB[i][j]));
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        adaptador = new ArrayAdapter<>(this, R.layout.simple_list_item_1, list);
         tabla_grid.setNumColumns(tamano + 1);
         tabla_grid.setAdapter(adaptador);
       }

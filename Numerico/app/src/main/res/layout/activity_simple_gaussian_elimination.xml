@@ -55,7 +55,7 @@
               android:layout_width="338dp"
               android:layout_height="5068dp"
               android:layout_marginTop="70dp"
-              android:columnWidth="50px" />
+              android:columnWidth="40px" />
 
             <TextView
               android:id="@+id/editText1"
@@ -64,7 +64,7 @@
               android:layout_below="@+id/GridOpciones"
               android:layout_marginTop="70dp"
               android:text="Results:"
-              android:textSize="30sp" />
+              android:textSize="25sp" />
           </LinearLayout>
         </HorizontalScrollView>
 
