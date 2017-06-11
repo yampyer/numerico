@@ -64,8 +64,8 @@ public class GaussSeidel extends AppCompatActivity {
     public void gauss(double[][] A, double[] b, double tol, int iter, double[] x0, double lamda) {
         int n = A.length;
         String error;
-        NumberFormat formatter = new DecimalFormat("0.###E0");
-        NumberFormat xform = new DecimalFormat("0.###E0");
+        NumberFormat formatter = new DecimalFormat("#.#E0");
+        NumberFormat xform = new DecimalFormat("#.#E0");
 
         double tabla[][] = new double[1][x0.length + 2];
         double[] x = new double[n];

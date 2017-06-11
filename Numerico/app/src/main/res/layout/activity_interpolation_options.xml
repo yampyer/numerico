@@ -19,8 +19,7 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -33,25 +32,61 @@
       android:id="@+id/inter_Newton"
       android:layout_width="120dp"
       android:layout_height="120dp"
-      android:layout_alignParentTop="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="66dp"
+      android:layout_marginStart="40dp"
+      android:layout_marginTop="60dp"
       android:background="@drawable/button_shape"
       android:text="Newton's Interpolation"
       android:textColor="@color/white"
-      android:textSize="15sp" />
+      android:textSize="15sp"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentStart="true" />
 
     <Button
       android:id="@+id/inter_Lagrange"
       android:layout_width="120dp"
       android:layout_height="120dp"
-      android:layout_alignLeft="@+id/inter_Newton"
-      android:layout_alignStart="@+id/inter_Newton"
-      android:layout_below="@+id/inter_Newton"
-      android:layout_marginTop="68dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@+id/inter_Newton"
+      android:layout_marginEnd="29dp"
       android:background="@drawable/button_shape"
       android:text="Lagrange"
       android:textColor="@color/white"
+      android:textSize="15sp" />
+
+    <Button
+      android:id="@+id/lineal_spline"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_marginTop="20dp"
+      android:background="@drawable/button_shape"
+      android:text="Lineal Spline"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      android:layout_below="@+id/inter_Newton"
+      android:layout_alignStart="@+id/inter_Newton" />
+
+    <Button
+      android:id="@+id/cubic_spline"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@+id/lineal_spline"
+      android:layout_marginEnd="29dp"
+      android:background="@drawable/button_shape"
+      android:text="Cubic Spline"
+      android:textColor="@color/white"
+      android:textSize="15sp" />
+
+    <Button
+      android:id="@+id/btn_neville"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_below="@+id/lineal_spline"
+      android:layout_marginTop="15dp"
+      android:background="@drawable/button_shape"
+      android:text="Neville"
+      android:textColor="@color/white"
+      android:layout_centerHorizontal="true"
       android:textSize="15sp" />
 
   </RelativeLayout>

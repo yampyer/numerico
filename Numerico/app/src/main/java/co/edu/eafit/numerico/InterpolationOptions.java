@@ -18,6 +18,12 @@ public class InterpolationOptions extends AppCompatActivity implements View.OnCl
     newton_btn.setOnClickListener(this);
     Button lagrange_btn = (Button) findViewById(R.id.inter_Lagrange);
     lagrange_btn.setOnClickListener(this);
+    Button lineal_btn = (Button) findViewById(R.id.lineal_spline);
+    lineal_btn.setOnClickListener(this);
+    Button cubic_spline = (Button) findViewById(R.id.cubic_spline);
+    cubic_spline.setOnClickListener(this);
+    Button neville_btn = (Button) findViewById(R.id.btn_neville);
+    neville_btn.setOnClickListener(this);
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,6 +44,18 @@ public class InterpolationOptions extends AppCompatActivity implements View.OnCl
       case R.id.inter_Lagrange:
         Intent lagrange = new Intent(this, Lagrange.class);
         startActivity(lagrange);
+        break;
+      case R.id.lineal_spline:
+        Intent lineal = new Intent(this, LinealSpline.class);
+        startActivity(lineal);
+        break;
+      case R.id.cubic_spline:
+        Intent cubic = new Intent(this, NaturalSpline.class);
+        startActivity(cubic);
+        break;
+      case R.id.btn_neville:
+        Intent neville = new Intent(this, Neville.class);
+        startActivity(neville);
         break;
     }
   }

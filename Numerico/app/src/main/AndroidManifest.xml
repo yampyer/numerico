@@ -158,6 +158,26 @@
       android:label="@string/title_activity_main"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".LinealSpline"
+      android:label="@string/title_activity_main"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".NaturalSpline"
+      android:label="@string/title_activity_main"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".Neville"
+      android:label="@string/title_activity_main"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".ScaledPivoting"
+      android:label="@string/title_activity_main"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>

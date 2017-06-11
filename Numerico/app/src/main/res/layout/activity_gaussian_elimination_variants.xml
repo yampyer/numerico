@@ -20,60 +20,74 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:padding="30dp">
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:padding="30dp">
 
-        <Button
-            android:id="@+id/without_pivot_btn"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_shape"
-            android:text="Without Pivoting"
-            android:layout_above="@+id/partial_pivoting_btn"
-            android:layout_alignStart="@+id/partial_pivoting_btn"
-            android:layout_marginBottom="21dp" />
+    <Button
+      android:id="@+id/without_pivot_btn"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:layout_alignParentStart="true"
+      android:layout_below="@+id/textView"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="79dp"
+      android:background="@drawable/button_shape"
+      android:text="Without Pivoting"
+      android:textColor="@color/white"
+      android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/partial_pivoting_btn"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginRight="22dp"
-            android:text="Partial Pivoting"
-            android:layout_above="@+id/total_pivoting_btn"
-            android:layout_alignStart="@+id/total_pivoting_btn"
-            android:layout_marginBottom="16dp" />
+    <Button
+      android:id="@+id/partial_pivoting_btn"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:layout_alignBaseline="@+id/without_pivot_btn"
+      android:layout_alignBottom="@+id/without_pivot_btn"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="31dp"
+      android:layout_marginRight="22dp"
+      android:background="@drawable/button_shape"
+      android:text="Partial Pivoting"
+      android:textColor="@color/white"
+      android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/total_pivoting_btn"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginLeft="18dp"
-            android:text="Total Pivoting"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:layout_alignParentBottom="true" />
+    <Button
+      android:id="@+id/total_pivoting_btn"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:background="@drawable/button_shape"
+      android:text="Total Pivoting"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      android:layout_marginTop="44dp"
+      android:layout_below="@+id/without_pivot_btn"
+      android:layout_alignStart="@+id/without_pivot_btn" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
-            android:text="Please select a variant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+    <Button
+      android:id="@+id/scaled_pivoting_btn"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:background="@drawable/button_shape"
+      android:text="Scaled Pivoting"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      android:layout_marginRight="22dp"
+      android:layout_alignBaseline="@+id/total_pivoting_btn"
+      android:layout_alignBottom="@+id/total_pivoting_btn"
+      android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+    <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="36dp"
+      android:text="Please select a variant"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+  </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

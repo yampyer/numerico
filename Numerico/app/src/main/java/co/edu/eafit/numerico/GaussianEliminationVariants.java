@@ -21,10 +21,12 @@ public class GaussianEliminationVariants extends AppCompatActivity implements Vi
         Button without_pivot_btn = (Button) findViewById(R.id.without_pivot_btn);
         Button partial_pivoting_btn = (Button) findViewById(R.id.partial_pivoting_btn);
         Button total_pivoting_btn = (Button) findViewById(R.id.total_pivoting_btn);
+        Button scaled_pivoting_btn = (Button) findViewById(R.id.scaled_pivoting_btn);
 
         without_pivot_btn.setOnClickListener(this);
         partial_pivoting_btn.setOnClickListener(this);
         total_pivoting_btn.setOnClickListener(this);
+        scaled_pivoting_btn.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +49,10 @@ public class GaussianEliminationVariants extends AppCompatActivity implements Vi
                 Intent totalPivoting = new Intent(this, TotalPivoting.class);
                 startActivity(totalPivoting);
                 break;
+          case R.id.scaled_pivoting_btn:
+            Intent scaledPivoting = new Intent(this, ScaledPivoting.class);
+            startActivity(scaledPivoting);
+            break;
         }
     }
 
