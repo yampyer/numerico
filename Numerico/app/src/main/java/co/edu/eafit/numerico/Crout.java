@@ -171,6 +171,7 @@ public class Crout extends AppCompatActivity {
         x[i] = (z[i] - suma) / U[i][i];
         resultados.setText(resultados.getText() + "\n" + "x" + i + " = " + x[i] + "\n");
       }
+      resultados.setText(resultados.getText() + "\n" + "det" + " = " + Matrix.determinant(A, n) + "\n");
     }
   }
 

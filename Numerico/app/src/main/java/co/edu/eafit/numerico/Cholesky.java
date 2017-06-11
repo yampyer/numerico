@@ -191,6 +191,7 @@ public class Cholesky extends AppCompatActivity {
     for (int i = 0; i < x.length; i++) {
       resultados.setText(resultados.getText() + "\n" + "x" + i + " = " + x[i] + "\n");
     }
+    resultados.setText(resultados.getText() + "\n" + "det" + " = " + Matrix.determinant(a, n) + "\n");
     return x;
   }
 
