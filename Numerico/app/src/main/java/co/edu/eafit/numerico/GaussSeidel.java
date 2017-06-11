@@ -103,7 +103,7 @@ public class GaussSeidel extends AppCompatActivity {
 
         tablitaGauss(str_n, datosXs_array, error);
 
-        while (errorAbs > tol && cont <= iter) {
+        while (errorAbs > tol && cont < iter) {
             errorAbs = 0.0;
             for (int i = 0; i < n; i++) {
                 Double suma = 0.0;
@@ -137,6 +137,7 @@ public class GaussSeidel extends AppCompatActivity {
 
             tablitaGauss(str_n, datosXs_array, error);
         }
+        cont++;
         if (cont == iter) {
             Mensaje("Solution not found in  " + iter + " iterations");
         }

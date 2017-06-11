@@ -87,6 +87,35 @@
       android:textColor="@color/white"
       android:textSize="15sp" />
 
+    <RadioGroup
+      android:id="@+id/phaseSelector"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@+id/iterative_methods_btn"
+      android:layout_marginTop="20dp"
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:weightSum="1">
+
+      <RadioButton
+        android:id="@+id/withPhaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:checked="true"
+        android:text="With Phases" />
+
+      <RadioButton
+        android:id="@+id/withoutPhasesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:checked="false"
+        android:text="Without Phases" />
+
+    </RadioGroup>
+
   </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

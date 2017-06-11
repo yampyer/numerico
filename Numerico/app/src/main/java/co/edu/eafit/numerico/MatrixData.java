@@ -28,6 +28,8 @@ public class MatrixData extends AppCompatActivity {
     Button continuar;
     private boolean estado_Tam_Matriz = true;
     public static int tamano_Matriz;
+    public static boolean withoutPhases;
+    public static boolean withPhases;
     boolean estoyTabla = false;
 
     //Validate data from matrix

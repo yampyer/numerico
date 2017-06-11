@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class ScaledPivoting extends AppCompatActivity {
     setContentView(R.layout.activity_simple_gaussian_elimination);
 
     tabla_grid = (GridView) findViewById(R.id.GridOpciones);
+    if (MatrixData.withoutPhases) {
+      tabla_grid.setVisibility(View.GONE);
+    }
     resultados = (TextView) findViewById(R.id.editText1);
 
     matrizA = Matrix.matrixA;
@@ -148,10 +152,10 @@ public class ScaledPivoting extends AppCompatActivity {
     return s;
   }
 
-  public double[][] scaledPivoting(double [][] matrix, int k, int n, double [] s) {
+  public double[][] scaledPivoting(double[][] matrix, int k, int n, double[] s) {
     double mayor = 0;
     int filamayor = k - 1;
-    double [] cocientes = new double[n];
+    double[] cocientes = new double[n];
     for (int i = k; i < n + 1; i++) {
       cocientes[i - 1] = Math.abs(matrix[i - 1][k - 1] / s[i - 1]);
     }
