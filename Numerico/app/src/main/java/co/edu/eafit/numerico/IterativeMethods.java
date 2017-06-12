@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +19,8 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import utils.SessionManager;
 
 public class IterativeMethods extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,6 +50,7 @@ public class IterativeMethods extends AppCompatActivity implements View.OnClickL
   static boolean estoyTabla = false;
 
   ArrayList<Double> list;
+  private SessionManager session;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +202,7 @@ public class IterativeMethods extends AppCompatActivity implements View.OnClickL
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
 
     if (estoyTabla) {
       tabla_grid = (GridView) findViewById(R.id.GridOpciones);
@@ -242,6 +248,26 @@ public class IterativeMethods extends AppCompatActivity implements View.OnClickL
     valores = new String[matrizA.length];
 
     nuevosX0();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.help_logout, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
 }

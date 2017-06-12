@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import API.NumericoAPI;
@@ -129,7 +131,9 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
    */
   private void logHistory(final String function, final String method, final String userId) {
 
-    Method methodJson = new Method(function, method, userId);
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+    String date = formatter.format(new Date());
+    Method methodJson = new Method(function, method, userId, date);
     Call<Method> call = serverAPI.newMethod(methodJson);
     call.enqueue(new Callback<Method>() {
       @Override
@@ -381,6 +385,14 @@ public class IncrementalSearch extends AppCompatActivity implements View.OnClick
           intent.putExtra("Uniqid", "Busquedas");
           startActivity(intent);
         }
+        return true;
+      case R.id.help_history:
+        Intent history = new Intent(this, History.class);
+        startActivity(history);
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

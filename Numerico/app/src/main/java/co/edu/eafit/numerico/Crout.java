@@ -16,6 +16,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import utils.SessionManager;
+
 public class Crout extends AppCompatActivity {
 
   double[][] matrizA;
@@ -30,6 +32,7 @@ public class Crout extends AppCompatActivity {
   ArrayAdapter<String> adaptador;
   ArrayList<String> list;
 
+  private SessionManager session;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class Crout extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   // Init for output
@@ -203,6 +207,10 @@ public class Crout extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.help_menu:
         help();
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import utils.SessionManager;
+
 public class Neville extends AppCompatActivity {
 
   EditText value;
@@ -21,6 +23,7 @@ public class Neville extends AppCompatActivity {
 
   double[] fxn;
   double[] xn;
+  private SessionManager session;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class Neville extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   public void evalX() {
@@ -46,7 +50,7 @@ public class Neville extends AppCompatActivity {
     }
     fxn = InterpolationTable.fXn;
     xn = InterpolationTable.xn;
-    Newton(fxn, xn, x);
+    nevilleMethod(fxn, xn, x);
   }
 
   @Override
@@ -87,7 +91,7 @@ public class Neville extends AppCompatActivity {
     return result+"   ";
   }
 
-  public void Newton(double[] fxn, double[] xn, double valorX) {
+  public void nevilleMethod(double[] fxn, double[] xn, double valorX) {
     nombre_metodo.setText("Neville");
     int n = xn.length;
     String result = "";
@@ -136,6 +140,10 @@ public class Neville extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.help_menu:
         help();
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

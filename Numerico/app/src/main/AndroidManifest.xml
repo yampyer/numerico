@@ -188,6 +188,11 @@
       android:name=".Signup"
       android:label="@string/title_activity_main"
       android:screenOrientation="portrait" />
+    <activity
+      android:name=".History"
+      android:label="@string/title_activity_main"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import utils.SessionManager;
+
 public class NaturalSpline extends AppCompatActivity {
 
   EditText value;
@@ -26,6 +28,7 @@ public class NaturalSpline extends AppCompatActivity {
   String el_valor;
   double[] fxn;
   double[] xn;
+  private SessionManager session;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class NaturalSpline extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   public void evalX() {
@@ -90,6 +94,10 @@ public class NaturalSpline extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.help_menu:
         help();
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

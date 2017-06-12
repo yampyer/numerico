@@ -12,28 +12,28 @@ public class Method {
   private String id;
   private String date;
 
-  public Method(String function, String method, String userId) {
+  public Method(String function, String method, String userId, String date) {
     this.function = function;
     this.method = method;
     this.userId = userId;
-    this.date = new Date().toString();
+    this.date = date;
   }
 
-  public Method(String function, String secondFunction, String method, String userId) {
+  public Method(String function, String secondFunction, String method, String userId, String date) {
     this.function = function;
     this.secondFunction = secondFunction;
     this.method = method;
     this.userId = userId;
-    this.date = new Date().toString();
+    this.date = date;
   }
 
-  public Method(String function, String secondFunction, String thirdFunction, String method, String userId) {
+  public Method(String function, String secondFunction, String thirdFunction, String method, String userId, String date) {
     this.function = function;
     this.secondFunction = secondFunction;
     this.thirdFunction = thirdFunction;
     this.method = method;
     this.userId = userId;
-    this.date = new Date().toString();
+    this.date = date;
   }
 
   /**

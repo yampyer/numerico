@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import utils.SessionManager;
 
 public class Interpolation extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class Interpolation extends AppCompatActivity {
   boolean isInEnteringVariables = true;
   int nElements;
   static EditText valorX;
+  private SessionManager session;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class Interpolation extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   public void initView() {
@@ -142,6 +148,26 @@ public class Interpolation extends AppCompatActivity {
       Intent openSystemsOfEqs = new Intent(Interpolation.this, InterpolationOptions.class);
       //openSystemsOfEqs.putExtra("matrix", matrix);
       startActivity(openSystemsOfEqs);
+    }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.help_logout, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 }

@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/help_menu"
-        android:orderInCategory="100"
-        android:title="Help" />
-
-    <item
-        android:id="@+id/graph_UV"
-        android:orderInCategory="100"
-        android:title="Grapher" />
+  <item
+    android:id="@+id/help_menu"
+    android:orderInCategory="100"
+    android:title="Help" />
+  <item
+    android:id="@+id/graph_UV"
+    android:orderInCategory="100"
+    android:title="Grapher" />
+  <item
+    android:id="@+id/help_history"
+    android:orderInCategory="100"
+    android:title="History" />
+  <item
+    android:id="@+id/help_logout"
+    android:orderInCategory="100"
+    android:title="Logout" />
 
 </menu>

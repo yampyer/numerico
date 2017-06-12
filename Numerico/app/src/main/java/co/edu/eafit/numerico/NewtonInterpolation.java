@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import utils.SessionManager;
+
 public class NewtonInterpolation extends AppCompatActivity {
 
   EditText value;
@@ -21,6 +23,7 @@ public class NewtonInterpolation extends AppCompatActivity {
 
   double[] fxn;
   double[] xn;
+  private SessionManager session;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class NewtonInterpolation extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   public void evalX() {
@@ -148,6 +152,10 @@ public class NewtonInterpolation extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.help_menu:
         help();
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

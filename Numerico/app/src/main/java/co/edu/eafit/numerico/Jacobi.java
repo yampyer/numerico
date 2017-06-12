@@ -20,6 +20,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import utils.SessionManager;
+
 public class Jacobi extends AppCompatActivity {
 
   double[][] matrizA;
@@ -41,6 +43,7 @@ public class Jacobi extends AppCompatActivity {
   boolean primeraVez = true;
 
   ArrayList<String> list;
+  private SessionManager session;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class Jacobi extends AppCompatActivity {
     Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(myToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    session = SessionManager.getInstance(getApplicationContext());
   }
 
   public void jacobi(double[][] A, double[] b, double tol, int iter, double[] x0, double lamda) {
@@ -237,6 +241,10 @@ public class Jacobi extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.help_menu:
         help();
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

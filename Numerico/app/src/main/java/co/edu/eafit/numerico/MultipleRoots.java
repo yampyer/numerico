@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import API.NumericoAPI;
@@ -207,7 +209,9 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
    */
   private void logHistory(final String function, final String secondFunction, final String thirdFunction, final String method, final String userId) {
 
-    Method methodJson = new Method(function, secondFunction, thirdFunction, method, userId);
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+    String date = formatter.format(new Date());
+    Method methodJson = new Method(function, secondFunction, thirdFunction, method, userId, date);
     Call<Method> call = serverAPI.newMethod(methodJson);
     call.enqueue(new Callback<Method>() {
       @Override
@@ -454,6 +458,14 @@ public class MultipleRoots extends AppCompatActivity implements View.OnClickList
           graficador.putExtra("Uniqid", "RaicesMultiplez");
           startActivity(graficador);
         }
+        return true;
+      case R.id.help_history:
+        Intent history = new Intent(this, History.class);
+        startActivity(history);
+        return true;
+      case R.id.help_logout:
+        session.logoutUser();
+        finish();
         return true;
       default:
         return super.onOptionsItemSelected(item);

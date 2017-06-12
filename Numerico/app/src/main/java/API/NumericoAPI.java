@@ -43,6 +43,6 @@ public interface NumericoAPI {
 
     @GET("Metodos")
     Call<List<Method>> getMethods(
-            @Query("filter") String includeLiteral
+            @Query("filter") String filter
     );
 }
